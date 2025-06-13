@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>World Cup Kits Shop</title>
+    <meta name="description" content="Official World Cup football kits from past tournaments. Browse and shop authentic jerseys from your favorite teams.">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="container">
+            <a href="/" class="logo">
+                <img src="assets/img/logo.svg" alt="World Cup Kits Shop Logo" width="40" height="40">
+                <span>World Cup Kits</span>
+            </a>
+            <div class="nav-links">
+                <a href="kits.html" aria-label="Browse all kits">Shop</a>
+                <a href="about.html" aria-label="About our shop">About</a>
+                <a href="cart.html" aria-label="View shopping cart" class="cart-link">
+                    Cart <span class="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <h1>Road to 2026</h1>
+                <p class="tagline">Own a piece of football history with authentic World Cup kits</p>
+                <div class="cta-buttons">
+                    <a href="kits.html" class="btn">Shop Kits</a>
+                    <a href="about.html" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Kits -->
+        <section class="featured-kits container">
+            <h2>Featured Kits</h2>
+            <div class="grid" id="featured-kits-grid">
+                <!-- Featured kits will be populated by JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 World Cup Kits Shop. Not officially associated with FIFA.</p>
+            <nav>
+                <a href="about.html">About</a>
+                <a href="about.html#contact">Contact</a>
+                <a href="about.html#privacy">Privacy</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module">
+        import { KITS } from './js/data.js';
+        import { formatPrice } from './js/utils.js';
+        import { getCart } from './js/utils.js';
+
+        // Update cart count
+        const updateCartCount = () => {
+            const cart = getCart();
+            const count = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.querySelector('.cart-count').textContent = count;
+        };
+
+        // Populate featured kits
+        const populateFeaturedKits = () => {
+            const grid = document.getElementById('featured-kits-grid');
+            const featuredKits = KITS.slice(0, 4);
+
+            featuredKits.forEach(kit => {
+                const card = document.createElement('article');
+                card.className = 'kit-card';
+                card.innerHTML = `
+                    <img src="${kit.img}" alt="${kit.team} ${kit.variant} Kit ${kit.year}" loading="lazy">
+                    <div class="kit-card-content">
+                        <h3>${kit.team} ${kit.variant}</h3>
+                        <p class="year">${kit.year}</p>
+                        <p class="price">${formatPrice(kit.price)}</p>
+                        <a href="kit-detail.html?id=${kit.id}" class="btn">View Details</a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartCount();
+            populateFeaturedKits();
+        });
+    </script>
+</body>
+</html> 

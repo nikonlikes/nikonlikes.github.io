@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shopping Cart - World Cup Kits Shop</title>
+    <meta name="description" content="View and manage your World Cup kit shopping cart. Update quantities, remove items, and proceed to checkout.">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="container">
+            <a href="/" class="logo">
+                <img src="assets/img/logo.svg" alt="World Cup Kits Shop Logo" width="40" height="40">
+                <span>World Cup Kits</span>
+            </a>
+            <div class="nav-links">
+                <a href="kits.html" aria-label="Browse all kits">Shop</a>
+                <a href="about.html" aria-label="About our shop">About</a>
+                <a href="cart.html" aria-label="View shopping cart" class="cart-link">
+                    Cart <span class="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="cart-section container">
+            <h1>Shopping Cart</h1>
+
+            <!-- Cart Table -->
+            <div class="cart-container">
+                <table class="cart-table" aria-label="Shopping cart items">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Size</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cart-items">
+                        <!-- Cart items will be populated by JavaScript -->
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4" class="text-right">Subtotal:</td>
+                            <td id="cart-subtotal">$0.00</td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <!-- Empty Cart Message -->
+                <div id="empty-cart-message" class="empty-cart" style="display: none;">
+                    <p>Your cart is empty</p>
+                    <a href="kits.html" class="btn">Continue Shopping</a>
+                </div>
+
+                <!-- Cart Actions -->
+                <div class="cart-actions">
+                    <button id="clear-cart" class="btn btn-secondary" aria-label="Clear shopping cart">
+                        Empty Cart
+                    </button>
+                    <button id="checkout" class="btn" aria-label="Proceed to checkout">
+                        Proceed to Checkout
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 World Cup Kits Shop. Not officially associated with FIFA.</p>
+            <nav>
+                <a href="about.html">About</a>
+                <a href="about.html#contact">Contact</a>
+                <a href="about.html#privacy">Privacy</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module">
+        import { KITS } from './js/data.js';
+        import { 
+            getCart, 
+            clearCart, 
+            updateQty, 
+            removeItem, 
+            formatPrice, 
+            calculateTotal 
+        } from './js/utils.js';
+
+        // Update cart count
+        const updateCartCount = () => {
+            const cart = getCart();
+            const count = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.querySelector('.cart-count').textContent = count;
+        };
+
+        // Render cart items
+        const renderCart = () => {
+            const cart = getCart();
+            const cartItems = document.getElementById('cart-items');
+            const emptyMessage = document.getElementById('empty-cart-message');
+            const cartTable = document.querySelector('.cart-table');
+            const cartActions = document.querySelector('.cart-actions');
+
+            if (cart.length === 0) {
+                cartTable.style.display = 'none';
+                cartActions.style.display = 'none';
+                emptyMessage.style.display = 'block';
+                return;
+            }
+
+            cartTable.style.display = 'table';
+            cartActions.style.display = 'flex';
+            emptyMessage.style.display = 'none';
+
+            cartItems.innerHTML = cart.map(item => {
+                const kit = KITS.find(k => k.id === item.id);
+                if (!kit) return '';
+
+                const itemTotal = kit.price * item.qty;
+                return `
+                    <tr>
+                        <td>
+                            <a href="kit-detail.html?id=${kit.id}">
+                                ${kit.team} ${kit.variant} Kit ${kit.year}
+                            </a>
+                        </td>
+                        <td>${item.size}</td>
+                        <td>${formatPrice(kit.price)}</td>
+                        <td>
+                            <div class="quantity-controls">
+                                <button 
+                                    class="qty-btn" 
+                                    data-action="decrease" 
+                                    data-id="${kit.id}" 
+                                    data-size="${item.size}"
+                                    aria-label="Decrease quantity"
+                                >-</button>
+                                <span class="qty">${item.qty}</span>
+                                <button 
+                                    class="qty-btn" 
+                                    data-action="increase" 
+                                    data-id="${kit.id}" 
+                                    data-size="${item.size}"
+                                    aria-label="Increase quantity"
+                                >+</button>
+                            </div>
+                        </td>
+                        <td>${formatPrice(itemTotal)}</td>
+                        <td>
+                            <button 
+                                class="remove-btn" 
+                                data-id="${kit.id}" 
+                                data-size="${item.size}"
+                                aria-label="Remove item"
+                            >×</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            // Update subtotal
+            document.getElementById('cart-subtotal').textContent = 
+                formatPrice(calculateTotal(cart, KITS));
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartCount();
+            renderCart();
+
+            // Quantity button handlers
+            document.getElementById('cart-items').addEventListener('click', (e) => {
+                if (e.target.classList.contains('qty-btn')) {
+                    const { action, id, size } = e.target.dataset;
+                    const delta = action === 'increase' ? 1 : -1;
+                    updateQty(id, size, delta);
+                    updateCartCount();
+                    renderCart();
+                }
+            });
+
+            // Remove button handlers
+            document.getElementById('cart-items').addEventListener('click', (e) => {
+                if (e.target.classList.contains('remove-btn')) {
+                    const { id, size } = e.target.dataset;
+                    removeItem(id, size);
+                    updateCartCount();
+                    renderCart();
+                }
+            });
+
+            // Clear cart handler
+            document.getElementById('clear-cart').addEventListener('click', () => {
+                if (confirm('Are you sure you want to empty your cart?')) {
+                    clearCart();
+                    updateCartCount();
+                    renderCart();
+                }
+            });
+
+            // Checkout handler
+            document.getElementById('checkout').addEventListener('click', () => {
+                alert('Checkout functionality is not implemented in this demo.');
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>About - World Cup Kits Shop</title>
+    <meta name="description" content="Learn more about our World Cup kit shop, our mission, and important disclaimers.">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="container">
+            <a href="/" class="logo">
+                <img src="assets/img/logo.svg" alt="World Cup Kits Shop Logo" width="40" height="40">
+                <span>World Cup Kits</span>
+            </a>
+            <div class="nav-links">
+                <a href="kits.html" aria-label="Browse all kits">Shop</a>
+                <a href="about.html" aria-label="About our shop">About</a>
+                <a href="cart.html" aria-label="View shopping cart" class="cart-link">
+                    Cart <span class="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="about-section container">
+            <h1>About World Cup Kits Shop</h1>
+
+            <div class="about-content">
+                <section id="mission">
+                    <h2>Our Mission</h2>
+                    <p>
+                        World Cup Kits Shop is a demonstration project showcasing a static e-commerce website
+                        built with vanilla HTML, CSS, and JavaScript. Our goal is to provide a clean, accessible,
+                        and performant shopping experience for football fans looking to own a piece of World Cup history.
+                    </p>
+                </section>
+
+                <section id="features">
+                    <h2>Features</h2>
+                    <ul>
+                        <li>Responsive design that works on all devices</li>
+                        <li>WCAG-AA compliant accessibility</li>
+                        <li>No build step required - pure HTML, CSS, and JavaScript</li>
+                        <li>Local storage-based shopping cart</li>
+                        <li>Filter kits by team and year</li>
+                        <li>Dark mode support</li>
+                    </ul>
+                </section>
+
+                <section id="disclaimer">
+                    <h2>Important Disclaimer</h2>
+                    <p>
+                        This is a demonstration project and is not officially associated with FIFA or any football
+                        governing body. All team names, designs, and World Cup references are used for educational
+                        purposes only. No actual merchandise is being sold through this website.
+                    </p>
+                </section>
+
+                <section id="contact">
+                    <h2>Contact</h2>
+                    <p>
+                        For questions about this demonstration project, please visit our
+                        <a href="https://github.com/yourusername/worldcup-kits-site" target="_blank" rel="noopener">
+                            GitHub repository
+                        </a>.
+                    </p>
+                </section>
+
+                <section id="privacy">
+                    <h2>Privacy</h2>
+                    <p>
+                        This demo site uses local storage to maintain your shopping cart state. No data is sent to
+                        any server. All data is stored locally in your browser and can be cleared at any time by
+                        using the "Empty Cart" button or clearing your browser's local storage.
+                    </p>
+                </section>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 World Cup Kits Shop. Not officially associated with FIFA.</p>
+            <nav>
+                <a href="about.html">About</a>
+                <a href="about.html#contact">Contact</a>
+                <a href="about.html#privacy">Privacy</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module">
+        import { getCart } from './js/utils.js';
+
+        // Update cart count
+        const updateCartCount = () => {
+            const cart = getCart();
+            const count = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.querySelector('.cart-count').textContent = count;
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartCount();
+        });
+    </script>
+</body>
+</html> 

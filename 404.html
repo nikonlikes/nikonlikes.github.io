@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Page Not Found - World Cup Kits Shop</title>
+    <meta name="description" content="The page you're looking for couldn't be found.">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="container">
+            <a href="/" class="logo">
+                <img src="assets/img/logo.svg" alt="World Cup Kits Shop Logo" width="40" height="40">
+                <span>World Cup Kits</span>
+            </a>
+            <div class="nav-links">
+                <a href="kits.html" aria-label="Browse all kits">Shop</a>
+                <a href="about.html" aria-label="About our shop">About</a>
+                <a href="cart.html" aria-label="View shopping cart" class="cart-link">
+                    Cart <span class="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="error-section container">
+            <div class="error-content">
+                <h1>You're Offside!</h1>
+                <p class="error-message">
+                    The page you're looking for couldn't be found. It might have been
+                    substituted or sent to the bench.
+                </p>
+                <a href="/" class="btn">Return to Home</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 World Cup Kits Shop. Not officially associated with FIFA.</p>
+            <nav>
+                <a href="about.html">About</a>
+                <a href="about.html#contact">Contact</a>
+                <a href="about.html#privacy">Privacy</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module">
+        import { getCart } from './js/utils.js';
+
+        // Update cart count
+        const updateCartCount = () => {
+            const cart = getCart();
+            const count = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.querySelector('.cart-count').textContent = count;
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartCount();
+        });
+    </script>
+</body>
+</html> 

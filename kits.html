@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shop World Cup Kits</title>
+    <meta name="description" content="Browse our collection of authentic World Cup football kits. Filter by team and year to find your perfect jersey.">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="container">
+            <a href="/" class="logo">
+                <img src="assets/img/logo.svg" alt="World Cup Kits Shop Logo" width="40" height="40">
+                <span>World Cup Kits</span>
+            </a>
+            <div class="nav-links">
+                <a href="kits.html" aria-label="Browse all kits">Shop</a>
+                <a href="about.html" aria-label="About our shop">About</a>
+                <a href="cart.html" aria-label="View shopping cart" class="cart-link">
+                    Cart <span class="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="kits-section container">
+            <h1>World Cup Kits</h1>
+            
+            <!-- Filters -->
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="team-filter">Team:</label>
+                    <select id="team-filter" aria-label="Filter by team">
+                        <option value="">All Teams</option>
+                        <!-- Teams will be populated by JavaScript -->
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label>Year:</label>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="year" value="" checked>
+                            All Years
+                        </label>
+                        <!-- Years will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kit Grid -->
+            <div class="grid" id="kits-grid">
+                <!-- Kits will be populated by JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 World Cup Kits Shop. Not officially associated with FIFA.</p>
+            <nav>
+                <a href="about.html">About</a>
+                <a href="about.html#contact">Contact</a>
+                <a href="about.html#privacy">Privacy</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module">
+        import { KITS, getTeams, getYears } from './js/data.js';
+        import { formatPrice, getCart } from './js/utils.js';
+
+        // Update cart count
+        const updateCartCount = () => {
+            const cart = getCart();
+            const count = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.querySelector('.cart-count').textContent = count;
+        };
+
+        // Populate filters
+        const populateFilters = () => {
+            const teamFilter = document.getElementById('team-filter');
+            const teams = getTeams();
+            
+            teams.forEach(team => {
+                const option = document.createElement('option');
+                option.value = team;
+                option.textContent = team;
+                teamFilter.appendChild(option);
+            });
+
+            const years = getYears();
+            const yearGroup = document.querySelector('.radio-group');
+            
+            years.forEach(year => {
+                const label = document.createElement('label');
+                label.innerHTML = `
+                    <input type="radio" name="year" value="${year}">
+                    ${year}
+                `;
+                yearGroup.appendChild(label);
+            });
+        };
+
+        // Filter kits
+        const filterKits = () => {
+            const selectedTeam = document.getElementById('team-filter').value;
+            const selectedYear = document.querySelector('input[name="year"]:checked').value;
+            
+            return KITS.filter(kit => {
+                const teamMatch = !selectedTeam || kit.team === selectedTeam;
+                const yearMatch = !selectedYear || kit.year.toString() === selectedYear;
+                return teamMatch && yearMatch;
+            });
+        };
+
+        // Render kits
+        const renderKits = (kits) => {
+            const grid = document.getElementById('kits-grid');
+            grid.innerHTML = '';
+
+            kits.forEach(kit => {
+                const card = document.createElement('article');
+                card.className = 'kit-card';
+                card.innerHTML = `
+                    <img src="${kit.img}" alt="${kit.team} ${kit.variant} Kit ${kit.year}" loading="lazy">
+                    <div class="kit-card-content">
+                        <h3>${kit.team} ${kit.variant}</h3>
+                        <p class="year">${kit.year}</p>
+                        <p class="price">${formatPrice(kit.price)}</p>
+                        <a href="kit-detail.html?id=${kit.id}" class="btn">View Details</a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartCount();
+            populateFilters();
+            renderKits(KITS);
+
+            // Add filter event listeners
+            document.getElementById('team-filter').addEventListener('change', () => {
+                renderKits(filterKits());
+            });
+
+            document.querySelectorAll('input[name="year"]').forEach(radio => {
+                radio.addEventListener('change', () => {
+                    renderKits(filterKits());
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

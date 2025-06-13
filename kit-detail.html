@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kit Details - World Cup Kits Shop</title>
+    <meta name="description" content="View detailed information about World Cup football kits. See specifications, choose your size, and add to cart.">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="container">
+            <a href="/" class="logo">
+                <img src="assets/img/logo.svg" alt="World Cup Kits Shop Logo" width="40" height="40">
+                <span>World Cup Kits</span>
+            </a>
+            <div class="nav-links">
+                <a href="kits.html" aria-label="Browse all kits">Shop</a>
+                <a href="about.html" aria-label="About our shop">About</a>
+                <a href="cart.html" aria-label="View shopping cart" class="cart-link">
+                    Cart <span class="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="kit-detail container">
+            <div class="kit-detail-grid">
+                <!-- Kit Image -->
+                <div class="kit-image">
+                    <img id="kit-image" src="" alt="" loading="lazy">
+                </div>
+
+                <!-- Kit Details -->
+                <div class="kit-info">
+                    <h1 id="kit-title"></h1>
+                    <p class="price" id="kit-price"></p>
+                    <p class="description" id="kit-description"></p>
+
+                    <!-- Size Selection -->
+                    <div class="size-selector">
+                        <label for="size-select">Size:</label>
+                        <select id="size-select" aria-label="Select kit size">
+                            <!-- Sizes will be populated by JavaScript -->
+                        </select>
+                    </div>
+
+                    <!-- Add to Cart -->
+                    <button id="add-to-cart" class="btn" aria-label="Add to cart">
+                        Add to Cart
+                    </button>
+
+                    <!-- Back to Shop -->
+                    <a href="kits.html" class="back-link">← Back to Shop</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 World Cup Kits Shop. Not officially associated with FIFA.</p>
+            <nav>
+                <a href="about.html">About</a>
+                <a href="about.html#contact">Contact</a>
+                <a href="about.html#privacy">Privacy</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module">
+        import { KITS } from './js/data.js';
+        import { formatPrice, getCart, addToCart, getUrlParam } from './js/utils.js';
+
+        // Update cart count
+        const updateCartCount = () => {
+            const cart = getCart();
+            const count = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.querySelector('.cart-count').textContent = count;
+        };
+
+        // Populate kit details
+        const populateKitDetails = () => {
+            const kitId = getUrlParam('id');
+            const kit = KITS.find(k => k.id === kitId);
+
+            if (!kit) {
+                window.location.href = '404.html';
+                return;
+            }
+
+            // Update page title
+            document.title = `${kit.team} ${kit.variant} Kit ${kit.year} - World Cup Kits Shop`;
+
+            // Update kit image
+            const kitImage = document.getElementById('kit-image');
+            kitImage.src = kit.img;
+            kitImage.alt = `${kit.team} ${kit.variant} Kit ${kit.year}`;
+
+            // Update kit info
+            document.getElementById('kit-title').textContent = `${kit.team} ${kit.variant} Kit ${kit.year}`;
+            document.getElementById('kit-price').textContent = formatPrice(kit.price);
+            document.getElementById('kit-description').textContent = kit.description;
+
+            // Populate size selector
+            const sizeSelect = document.getElementById('size-select');
+            kit.sizes.forEach(size => {
+                const option = document.createElement('option');
+                option.value = size;
+                option.textContent = size;
+                sizeSelect.appendChild(option);
+            });
+
+            // Add to cart handler
+            document.getElementById('add-to-cart').addEventListener('click', () => {
+                const size = sizeSelect.value;
+                addToCart({
+                    id: kit.id,
+                    size,
+                    qty: 1
+                });
+                updateCartCount();
+                
+                // Show confirmation
+                const btn = document.getElementById('add-to-cart');
+                const originalText = btn.textContent;
+                btn.textContent = 'Added to Cart!';
+                btn.disabled = true;
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.disabled = false;
+                }, 2000);
+            });
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartCount();
+            populateKitDetails();
+        });
+    </script>
+</body>
+</html> 
