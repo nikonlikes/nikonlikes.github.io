@@ -1,109 +1,142 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>World Cup Kits Shop</title>
-    <meta name="description" content="Official World Cup football kits from past tournaments. Browse and shop authentic jerseys from your favorite teams.">
-    
-    <!-- Google Fonts -->
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>World Cup Kits - Official Replica Jerseys</title>
+    <meta name="description" content="Shop authentic World Cup football kits and jerseys from your favorite national teams. Road to 2026 starts here!" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- Styles -->
     <link rel="stylesheet" href="css/style.css">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg">
-</head>
-<body>
-    <header class="site-header">
-        <nav class="container">
-            <a href="/" class="logo">
-                <img src="assets/img/logo.svg" alt="World Cup Kits Shop Logo" width="40" height="40">
-                <span>World Cup Kits</span>
-            </a>
-            <div class="nav-links">
-                <a href="kits.html" aria-label="Browse all kits">Shop</a>
-                <a href="about.html" aria-label="About our shop">About</a>
-                <a href="cart.html" aria-label="View shopping cart" class="cart-link">
-                    Cart <span class="cart-count">0</span>
-                </a>
-            </div>
-        </nav>
+  </head>
+  <body>
+    <!-- Navigation Header -->
+    <header class="header">
+      <nav class="nav" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+          <a href="index.html" class="logo" aria-label="World Cup Kits Home">
+            <img src="assets/img/logo.svg" alt="World Cup Kits Logo" width="40" height="40">
+            <span>World Cup Kits</span>
+          </a>
+          <ul class="nav-menu">
+            <li><a href="index.html" aria-current="page">Home</a></li>
+            <li><a href="kits.html">Shop Kits</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="cart.html" class="cart-link" aria-label="Shopping cart">Cart (<span id="cart-count">0</span>)</a></li>
+          </ul>
+        </div>
+      </nav>
     </header>
 
     <main>
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="container">
-                <h1>Road to 2026</h1>
-                <p class="tagline">Own a piece of football history with authentic World Cup kits</p>
-                <div class="cta-buttons">
-                    <a href="kits.html" class="btn">Shop Kits</a>
-                    <a href="about.html" class="btn btn-secondary">Learn More</a>
-                </div>
-            </div>
-        </section>
+      <!-- Hero Section -->
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-container">
+          <h1 id="hero-title" class="hero-title">Road to 2026</h1>
+          <p class="hero-subtitle">Get ready for the next World Cup with authentic replica jerseys from your favorite national teams</p>
+          <div class="hero-actions">
+            <a href="kits.html" class="btn btn-primary">Shop All Kits</a>
+            <a href="about.html" class="btn btn-secondary">Learn More</a>
+          </div>
+        </div>
+      </section>
 
-        <!-- Featured Kits -->
-        <section class="featured-kits container">
-            <h2>Featured Kits</h2>
-            <div class="grid" id="featured-kits-grid">
-                <!-- Featured kits will be populated by JavaScript -->
+      <!-- Featured Kits Section -->
+      <section class="featured-kits" aria-labelledby="featured-title">
+        <div class="container">
+          <h2 id="featured-title" class="section-title">Featured Kits</h2>
+          <div class="kits-grid" id="featured-kits-grid">
+            <!-- Kits will be populated by JavaScript -->
+          </div>
+          <div class="section-cta">
+            <a href="kits.html" class="btn btn-outline">View All Kits</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- World Cup History Section -->
+      <section class="history-section" aria-labelledby="history-title">
+        <div class="container">
+          <h2 id="history-title" class="section-title">Celebrating World Cup Legacy</h2>
+          <div class="history-grid">
+            <div class="history-card">
+              <h3>Qatar 2022</h3>
+              <p>The most recent World Cup brought us incredible moments and iconic kits that made history.</p>
             </div>
-        </section>
+            <div class="history-card">
+              <h3>Russia 2018</h3>
+              <p>Classic designs and memorable matches that showcased the beautiful game at its finest.</p>
+            </div>
+            <div class="history-card">
+              <h3>Road to 2026</h3>
+              <p>Get ready for the next chapter with authentic replica jerseys from all participating nations.</p>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
-    <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2024 World Cup Kits Shop. Not officially associated with FIFA.</p>
-            <nav>
-                <a href="about.html">About</a>
-                <a href="about.html#contact">Contact</a>
-                <a href="about.html#privacy">Privacy</a>
-            </nav>
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>World Cup Kits</h3>
+            <p>Your destination for authentic World Cup replica jerseys and football merchandise.</p>
+          </div>
+          <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="kits.html">Shop Kits</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="cart.html">Shopping Cart</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Legal</h4>
+            <p><small>Not officially associated with FIFA or any football associations. Replica jerseys for fans.</small></p>
+          </div>
         </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 World Cup Kits. All rights reserved.</p>
+        </div>
+      </div>
     </footer>
 
     <!-- Scripts -->
+    <script type="module" src="js/utils.js"></script>
     <script type="module">
-        import { KITS } from './js/data.js';
-        import { formatPrice } from './js/utils.js';
-        import { getCart } from './js/utils.js';
+      import { KITS } from './js/data.js';
+      import { updateCartCount } from './js/utils.js';
 
-        // Update cart count
-        const updateCartCount = () => {
-            const cart = getCart();
-            const count = cart.reduce((sum, item) => sum + item.qty, 0);
-            document.querySelector('.cart-count').textContent = count;
-        };
+      // Update cart count on page load
+      updateCartCount();
 
-        // Populate featured kits
-        const populateFeaturedKits = () => {
-            const grid = document.getElementById('featured-kits-grid');
-            const featuredKits = KITS.slice(0, 4);
+      // Populate featured kits (first 4 items)
+      const featuredGrid = document.getElementById('featured-kits-grid');
+      const featuredKits = KITS.slice(0, 4);
 
-            featuredKits.forEach(kit => {
-                const card = document.createElement('article');
-                card.className = 'kit-card';
-                card.innerHTML = `
-                    <img src="${kit.img}" alt="${kit.team} ${kit.variant} Kit ${kit.year}" loading="lazy">
-                    <div class="kit-card-content">
-                        <h3>${kit.team} ${kit.variant}</h3>
-                        <p class="year">${kit.year}</p>
-                        <p class="price">${formatPrice(kit.price)}</p>
-                        <a href="kit-detail.html?id=${kit.id}" class="btn">View Details</a>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        };
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            updateCartCount();
-            populateFeaturedKits();
-        });
+      featuredKits.forEach(kit => {
+        const kitCard = document.createElement('div');
+        kitCard.className = 'kit-card';
+        kitCard.innerHTML = `
+          <div class="kit-image">
+            <img src="${kit.img}" alt="${kit.team} ${kit.variant} ${kit.year}" loading="lazy">
+          </div>
+          <div class="kit-info">
+            <h3 class="kit-title">
+              <img src="assets/icons/${kit.team.toLowerCase()}.png" alt="${kit.team} flag" class="team-flag">
+              ${kit.team} ${kit.variant}
+            </h3>
+            <p class="kit-year">${kit.year}</p>
+            <p class="kit-price">$${kit.price}</p>
+            <a href="kit-detail.html?id=${kit.id}" class="btn btn-small">View Details</a>
+          </div>
+        `;
+        featuredGrid.appendChild(kitCard);
+      });
     </script>
-</body>
-</html> 
+  </body>
+</html>

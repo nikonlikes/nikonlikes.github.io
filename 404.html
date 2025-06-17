@@ -1,76 +1,111 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Page Not Found - World Cup Kits Shop</title>
-    <meta name="description" content="The page you're looking for couldn't be found.">
-    
-    <!-- Google Fonts -->
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page Not Found - World Cup Kits</title>
+    <meta name="description" content="The page you're looking for could not be found." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- Styles -->
     <link rel="stylesheet" href="css/style.css">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg">
-</head>
-<body>
-    <header class="site-header">
-        <nav class="container">
-            <a href="/" class="logo">
-                <img src="assets/img/logo.svg" alt="World Cup Kits Shop Logo" width="40" height="40">
-                <span>World Cup Kits</span>
-            </a>
-            <div class="nav-links">
-                <a href="kits.html" aria-label="Browse all kits">Shop</a>
-                <a href="about.html" aria-label="About our shop">About</a>
-                <a href="cart.html" aria-label="View shopping cart" class="cart-link">
-                    Cart <span class="cart-count">0</span>
-                </a>
-            </div>
-        </nav>
+  </head>
+  <body>
+    <!-- Navigation Header -->
+    <header class="header">
+      <nav class="nav" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+          <a href="index.html" class="logo" aria-label="World Cup Kits Home">
+            <img src="assets/img/logo.svg" alt="World Cup Kits Logo" width="40" height="40">
+            <span>World Cup Kits</span>
+          </a>
+          <ul class="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="kits.html">Shop Kits</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="cart.html" class="cart-link" aria-label="Shopping cart">Cart (<span id="cart-count">0</span>)</a></li>
+          </ul>
+        </div>
+      </nav>
     </header>
 
     <main>
-        <section class="error-section container">
-            <div class="error-content">
-                <h1>You're Offside!</h1>
-                <p class="error-message">
-                    The page you're looking for couldn't be found. It might have been
-                    substituted or sent to the bench.
-                </p>
-                <a href="/" class="btn">Return to Home</a>
+      <!-- 404 Error Section -->
+      <section class="error-section">
+        <div class="container">
+          <div class="error-content">
+            <div class="error-graphic">
+              <span class="error-number">404</span>
             </div>
-        </section>
+            <h1 class="error-title">You're Offside!</h1>
+            <p class="error-message">
+              Sorry, the page you're looking for seems to have been sent off the field. 
+              Let's get you back in the game!
+            </p>
+            <div class="error-actions">
+              <a href="index.html" class="btn btn-primary">Back to Home</a>
+              <a href="kits.html" class="btn btn-outline">Shop Kits</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Helpful Links -->
+      <section class="helpful-links">
+        <div class="container">
+          <h2>Maybe you were looking for:</h2>
+          <div class="links-grid">
+            <div class="link-card">
+              <h3><a href="kits.html">Shop All Kits</a></h3>
+              <p>Browse our complete collection of World Cup jerseys</p>
+            </div>
+            <div class="link-card">
+              <h3><a href="cart.html">Your Cart</a></h3>
+              <p>Check items you've added to your shopping cart</p>
+            </div>
+            <div class="link-card">
+              <h3><a href="about.html">About Us</a></h3>
+              <p>Learn more about World Cup Kits and our mission</p>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
-    <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2024 World Cup Kits Shop. Not officially associated with FIFA.</p>
-            <nav>
-                <a href="about.html">About</a>
-                <a href="about.html#contact">Contact</a>
-                <a href="about.html#privacy">Privacy</a>
-            </nav>
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>World Cup Kits</h3>
+            <p>Your destination for authentic World Cup replica jerseys and football merchandise.</p>
+          </div>
+          <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="kits.html">Shop Kits</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="cart.html">Shopping Cart</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Legal</h4>
+            <p><small>Not officially associated with FIFA or any football associations. Replica jerseys for fans.</small></p>
+          </div>
         </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 World Cup Kits. All rights reserved.</p>
+        </div>
+      </div>
     </footer>
 
     <!-- Scripts -->
+    <script type="module" src="js/utils.js"></script>
     <script type="module">
-        import { getCart } from './js/utils.js';
-
-        // Update cart count
-        const updateCartCount = () => {
-            const cart = getCart();
-            const count = cart.reduce((sum, item) => sum + item.qty, 0);
-            document.querySelector('.cart-count').textContent = count;
-        };
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            updateCartCount();
-        });
+      import { updateCartCount } from './js/utils.js';
+      // Update cart count on page load
+      updateCartCount();
     </script>
-</body>
-</html> 
+  </body>
+</html>

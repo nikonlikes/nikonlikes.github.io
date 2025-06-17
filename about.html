@@ -1,120 +1,168 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>About - World Cup Kits Shop</title>
-    <meta name="description" content="Learn more about our World Cup kit shop, our mission, and important disclaimers.">
-    
-    <!-- Google Fonts -->
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us - World Cup Kits</title>
+    <meta name="description" content="Learn about World Cup Kits - your destination for authentic replica football jerseys and World Cup merchandise." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- Styles -->
     <link rel="stylesheet" href="css/style.css">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg">
-</head>
-<body>
-    <header class="site-header">
-        <nav class="container">
-            <a href="/" class="logo">
-                <img src="assets/img/logo.svg" alt="World Cup Kits Shop Logo" width="40" height="40">
-                <span>World Cup Kits</span>
-            </a>
-            <div class="nav-links">
-                <a href="kits.html" aria-label="Browse all kits">Shop</a>
-                <a href="about.html" aria-label="About our shop">About</a>
-                <a href="cart.html" aria-label="View shopping cart" class="cart-link">
-                    Cart <span class="cart-count">0</span>
-                </a>
-            </div>
-        </nav>
+  </head>
+  <body>
+    <!-- Navigation Header -->
+    <header class="header">
+      <nav class="nav" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+          <a href="index.html" class="logo" aria-label="World Cup Kits Home">
+            <img src="assets/img/logo.svg" alt="World Cup Kits Logo" width="40" height="40">
+            <span>World Cup Kits</span>
+          </a>
+          <ul class="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="kits.html">Shop Kits</a></li>
+            <li><a href="about.html" aria-current="page">About</a></li>
+            <li><a href="cart.html" class="cart-link" aria-label="Shopping cart">Cart (<span id="cart-count">0</span>)</a></li>
+          </ul>
+        </div>
+      </nav>
     </header>
 
     <main>
-        <section class="about-section container">
-            <h1>About World Cup Kits Shop</h1>
+      <!-- Page Header -->
+      <section class="page-header">
+        <div class="container">
+          <h1>About World Cup Kits</h1>
+          <p>Celebrating football passion through authentic replica jerseys</p>
+        </div>
+      </section>
 
-            <div class="about-content">
-                <section id="mission">
-                    <h2>Our Mission</h2>
-                    <p>
-                        World Cup Kits Shop is a demonstration project showcasing a static e-commerce website
-                        built with vanilla HTML, CSS, and JavaScript. Our goal is to provide a clean, accessible,
-                        and performant shopping experience for football fans looking to own a piece of World Cup history.
-                    </p>
-                </section>
-
-                <section id="features">
-                    <h2>Features</h2>
-                    <ul>
-                        <li>Responsive design that works on all devices</li>
-                        <li>WCAG-AA compliant accessibility</li>
-                        <li>No build step required - pure HTML, CSS, and JavaScript</li>
-                        <li>Local storage-based shopping cart</li>
-                        <li>Filter kits by team and year</li>
-                        <li>Dark mode support</li>
-                    </ul>
-                </section>
-
-                <section id="disclaimer">
-                    <h2>Important Disclaimer</h2>
-                    <p>
-                        This is a demonstration project and is not officially associated with FIFA or any football
-                        governing body. All team names, designs, and World Cup references are used for educational
-                        purposes only. No actual merchandise is being sold through this website.
-                    </p>
-                </section>
-
-                <section id="contact">
-                    <h2>Contact</h2>
-                    <p>
-                        For questions about this demonstration project, please visit our
-                        <a href="https://github.com/yourusername/worldcup-kits-site" target="_blank" rel="noopener">
-                            GitHub repository
-                        </a>.
-                    </p>
-                </section>
-
-                <section id="privacy">
-                    <h2>Privacy</h2>
-                    <p>
-                        This demo site uses local storage to maintain your shopping cart state. No data is sent to
-                        any server. All data is stored locally in your browser and can be cleared at any time by
-                        using the "Empty Cart" button or clearing your browser's local storage.
-                    </p>
-                </section>
+      <!-- About Content -->
+      <section class="about-content">
+        <div class="container">
+          <div class="content-grid">
+            <div class="content-section">
+              <h2>Our Mission</h2>
+              <p>
+                World Cup Kits is dedicated to bringing football fans closer to their favorite teams 
+                through high-quality replica jerseys. We believe that wearing your team's colors is 
+                more than just fashion - it's a way to show your passion and connect with millions 
+                of fans around the world.
+              </p>
+              <p>
+                From the iconic designs of Qatar 2022 to the classic kits of Russia 2018, we curate 
+                a collection that celebrates the beautiful game's most prestigious tournament.
+              </p>
             </div>
-        </section>
+
+            <div class="content-section">
+              <h2>Quality & Authenticity</h2>
+              <p>
+                All our replica jerseys are made with premium materials that ensure comfort, 
+                durability, and authentic styling. Each kit features the same design elements 
+                that make the originals so special, from sponsor logos to federation badges.
+              </p>
+              <ul class="features-list">
+                <li>High-quality fabric construction</li>
+                <li>Authentic team colors and designs</li>
+                <li>Official sponsor and federation branding</li>
+                <li>Available in all standard sizes</li>
+                <li>Comfortable fit for everyday wear</li>
+              </ul>
+            </div>
+
+            <div class="content-section">
+              <h2>Looking Ahead</h2>
+              <p>
+                As we approach the 2026 World Cup, we're already preparing to bring you the latest 
+                and greatest in national team designs. The Road to 2026 starts here, and we want 
+                to be part of your journey as a football fan.
+              </p>
+              <p>
+                Whether you're supporting your home country or cheering for an underdog, we have 
+                the perfect kit to help you show your colors with pride.
+              </p>
+            </div>
+
+            <div class="content-section">
+              <h2>Design Credits</h2>
+              <p>
+                This site was designed with football fans in mind, featuring a clean, modern 
+                interface that puts the focus on the beautiful kits themselves. Our color 
+                palette draws inspiration from the pitch - grass green, pristine white lines, 
+                and the golden glory of lifting the trophy.
+              </p>
+            </div>
+            
+            <div class="content-section legal-section">
+              <h2>Legal Disclaimer</h2>
+              <div class="legal-notice">
+                <p>
+                  <strong>Important:</strong> World Cup Kits is not officially associated with 
+                  FIFA, any national football associations, or official tournament organizers. 
+                  All products are replica jerseys created for fans and supporters.
+                </p>
+                <p>
+                  Team names, logos, and designs are the property of their respective owners. 
+                  This site is created for educational and demonstration purposes as part of 
+                  a web development project.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section class="contact-section">
+        <div class="container">
+          <div class="contact-card">
+            <h2>Questions?</h2>
+            <p>
+              This is a demonstration project showcasing modern web development techniques. 
+              For questions about the code or implementation, please refer to the GitHub repository.
+            </p>
+            <a href="kits.html" class="btn btn-primary">Continue Shopping</a>
+          </div>
+        </div>
+      </section>
     </main>
 
-    <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2024 World Cup Kits Shop. Not officially associated with FIFA.</p>
-            <nav>
-                <a href="about.html">About</a>
-                <a href="about.html#contact">Contact</a>
-                <a href="about.html#privacy">Privacy</a>
-            </nav>
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>World Cup Kits</h3>
+            <p>Your destination for authentic World Cup replica jerseys and football merchandise.</p>
+          </div>
+          <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="kits.html">Shop Kits</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="cart.html">Shopping Cart</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Legal</h4>
+            <p><small>Not officially associated with FIFA or any football associations. Replica jerseys for fans.</small></p>
+          </div>
         </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 World Cup Kits. All rights reserved.</p>
+        </div>
+      </div>
     </footer>
 
     <!-- Scripts -->
+    <script type="module" src="js/utils.js"></script>
     <script type="module">
-        import { getCart } from './js/utils.js';
-
-        // Update cart count
-        const updateCartCount = () => {
-            const cart = getCart();
-            const count = cart.reduce((sum, item) => sum + item.qty, 0);
-            document.querySelector('.cart-count').textContent = count;
-        };
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            updateCartCount();
-        });
+      import { updateCartCount } from './js/utils.js';
+      // Update cart count on page load
+      updateCartCount();
     </script>
-</body>
-</html> 
+  </body>
+</html>

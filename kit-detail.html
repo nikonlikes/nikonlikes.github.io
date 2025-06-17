@@ -1,153 +1,142 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kit Details - World Cup Kits Shop</title>
-    <meta name="description" content="View detailed information about World Cup football kits. See specifications, choose your size, and add to cart.">
-    
-    <!-- Google Fonts -->
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="page-title">Kit Details - World Cup Kits</title>
+    <meta name="description" content="View detailed information about this World Cup football kit including sizes, pricing, and specifications." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- Styles -->
     <link rel="stylesheet" href="css/style.css">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg">
-</head>
-<body>
-    <header class="site-header">
-        <nav class="container">
-            <a href="/" class="logo">
-                <img src="assets/img/logo.svg" alt="World Cup Kits Shop Logo" width="40" height="40">
-                <span>World Cup Kits</span>
-            </a>
-            <div class="nav-links">
-                <a href="kits.html" aria-label="Browse all kits">Shop</a>
-                <a href="about.html" aria-label="About our shop">About</a>
-                <a href="cart.html" aria-label="View shopping cart" class="cart-link">
-                    Cart <span class="cart-count">0</span>
-                </a>
-            </div>
-        </nav>
+  </head>
+  <body>
+    <!-- Navigation Header -->
+    <header class="header">
+      <nav class="nav" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+          <a href="index.html" class="logo" aria-label="World Cup Kits Home">
+            <img src="assets/img/logo.svg" alt="World Cup Kits Logo" width="40" height="40">
+            <span>World Cup Kits</span>
+          </a>
+          <ul class="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="kits.html">Shop Kits</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="cart.html" class="cart-link" aria-label="Shopping cart">Cart (<span id="cart-count">0</span>)</a></li>
+          </ul>
+        </div>
+      </nav>
     </header>
 
     <main>
-        <section class="kit-detail container">
-            <div class="kit-detail-grid">
-                <!-- Kit Image -->
-                <div class="kit-image">
-                    <img id="kit-image" src="" alt="" loading="lazy">
-                </div>
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <div class="container">
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="kits.html">Shop Kits</a></li>
+            <li id="breadcrumb-current" aria-current="page">Kit Details</li>
+          </ol>
+        </div>
+      </nav>
 
-                <!-- Kit Details -->
-                <div class="kit-info">
-                    <h1 id="kit-title"></h1>
-                    <p class="price" id="kit-price"></p>
-                    <p class="description" id="kit-description"></p>
-
-                    <!-- Size Selection -->
-                    <div class="size-selector">
-                        <label for="size-select">Size:</label>
-                        <select id="size-select" aria-label="Select kit size">
-                            <!-- Sizes will be populated by JavaScript -->
-                        </select>
-                    </div>
-
-                    <!-- Add to Cart -->
-                    <button id="add-to-cart" class="btn" aria-label="Add to cart">
-                        Add to Cart
-                    </button>
-
-                    <!-- Back to Shop -->
-                    <a href="kits.html" class="back-link">← Back to Shop</a>
-                </div>
+      <!-- Kit Detail Section -->
+      <section class="kit-detail" id="kit-detail-section">
+        <div class="container">
+          <div class="kit-detail-grid">
+            <div class="kit-image-section">
+              <img id="kit-main-image" src="" alt="" class="kit-main-image">
             </div>
-        </section>
+            <div class="kit-info-section">
+              <div class="kit-header">
+                <h1 id="kit-title" class="kit-detail-title"></h1>
+                <div id="kit-team-info" class="kit-team-info"></div>
+              </div>
+              
+              <div class="kit-price-section">
+                <p id="kit-price" class="kit-detail-price"></p>
+              </div>
+
+              <div class="kit-specs">
+                <h3>Specifications</h3>
+                <ul id="kit-specs-list">
+                  <!-- Populated by JavaScript -->
+                </ul>
+              </div>
+
+              <form class="kit-purchase-form" id="purchase-form">
+                <div class="size-selector">
+                  <label for="size-select">Size:</label>
+                  <select id="size-select" required aria-label="Select size">
+                    <option value="">Choose Size</option>
+                  </select>
+                </div>
+                
+                <div class="quantity-selector">
+                  <label for="quantity">Quantity:</label>
+                  <input type="number" id="quantity" min="1" max="10" value="1" aria-label="Quantity">
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-large" id="add-to-cart-btn">
+                  Add to Cart
+                </button>
+              </form>
+
+              <div class="kit-description">
+                <h3>Description</h3>
+                <p id="kit-description-text">
+                  Authentic replica jersey featuring the same design worn by the national team. 
+                  Made with high-quality materials for comfort and durability. Perfect for fans 
+                  who want to show their support in style.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Related Kits Section -->
+      <section class="related-kits">
+        <div class="container">
+          <h2>You Might Also Like</h2>
+          <div class="kits-grid" id="related-kits-grid">
+            <!-- Populated by JavaScript -->
+          </div>
+        </div>
+      </section>
     </main>
 
-    <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2024 World Cup Kits Shop. Not officially associated with FIFA.</p>
-            <nav>
-                <a href="about.html">About</a>
-                <a href="about.html#contact">Contact</a>
-                <a href="about.html#privacy">Privacy</a>
-            </nav>
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>World Cup Kits</h3>
+            <p>Your destination for authentic World Cup replica jerseys and football merchandise.</p>
+          </div>
+          <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="kits.html">Shop Kits</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="cart.html">Shopping Cart</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Legal</h4>
+            <p><small>Not officially associated with FIFA or any football associations. Replica jerseys for fans.</small></p>
+          </div>
         </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 World Cup Kits. All rights reserved.</p>
+        </div>
+      </div>
     </footer>
 
     <!-- Scripts -->
-    <script type="module">
-        import { KITS } from './js/data.js';
-        import { formatPrice, getCart, addToCart, getUrlParam } from './js/utils.js';
-
-        // Update cart count
-        const updateCartCount = () => {
-            const cart = getCart();
-            const count = cart.reduce((sum, item) => sum + item.qty, 0);
-            document.querySelector('.cart-count').textContent = count;
-        };
-
-        // Populate kit details
-        const populateKitDetails = () => {
-            const kitId = getUrlParam('id');
-            const kit = KITS.find(k => k.id === kitId);
-
-            if (!kit) {
-                window.location.href = '404.html';
-                return;
-            }
-
-            // Update page title
-            document.title = `${kit.team} ${kit.variant} Kit ${kit.year} - World Cup Kits Shop`;
-
-            // Update kit image
-            const kitImage = document.getElementById('kit-image');
-            kitImage.src = kit.img;
-            kitImage.alt = `${kit.team} ${kit.variant} Kit ${kit.year}`;
-
-            // Update kit info
-            document.getElementById('kit-title').textContent = `${kit.team} ${kit.variant} Kit ${kit.year}`;
-            document.getElementById('kit-price').textContent = formatPrice(kit.price);
-            document.getElementById('kit-description').textContent = kit.description;
-
-            // Populate size selector
-            const sizeSelect = document.getElementById('size-select');
-            kit.sizes.forEach(size => {
-                const option = document.createElement('option');
-                option.value = size;
-                option.textContent = size;
-                sizeSelect.appendChild(option);
-            });
-
-            // Add to cart handler
-            document.getElementById('add-to-cart').addEventListener('click', () => {
-                const size = sizeSelect.value;
-                addToCart({
-                    id: kit.id,
-                    size,
-                    qty: 1
-                });
-                updateCartCount();
-                
-                // Show confirmation
-                const btn = document.getElementById('add-to-cart');
-                const originalText = btn.textContent;
-                btn.textContent = 'Added to Cart!';
-                btn.disabled = true;
-                setTimeout(() => {
-                    btn.textContent = originalText;
-                    btn.disabled = false;
-                }, 2000);
-            });
-        };
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            updateCartCount();
-            populateKitDetails();
-        });
-    </script>
-</body>
-</html> 
+    <script type="module" src="js/utils.js"></script>
+    <script type="module" src="js/detail.js"></script>
+  </body>
+</html>

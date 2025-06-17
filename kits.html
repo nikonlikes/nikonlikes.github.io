@@ -1,168 +1,108 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Shop World Cup Kits</title>
-    <meta name="description" content="Browse our collection of authentic World Cup football kits. Filter by team and year to find your perfect jersey.">
-    
-    <!-- Google Fonts -->
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop All Kits - World Cup Kits</title>
+    <meta name="description" content="Browse our complete collection of World Cup football kits and jerseys from all participating teams." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- Styles -->
     <link rel="stylesheet" href="css/style.css">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg">
-</head>
-<body>
-    <header class="site-header">
-        <nav class="container">
-            <a href="/" class="logo">
-                <img src="assets/img/logo.svg" alt="World Cup Kits Shop Logo" width="40" height="40">
-                <span>World Cup Kits</span>
-            </a>
-            <div class="nav-links">
-                <a href="kits.html" aria-label="Browse all kits">Shop</a>
-                <a href="about.html" aria-label="About our shop">About</a>
-                <a href="cart.html" aria-label="View shopping cart" class="cart-link">
-                    Cart <span class="cart-count">0</span>
-                </a>
-            </div>
-        </nav>
+  </head>
+  <body>
+    <!-- Navigation Header -->
+    <header class="header">
+      <nav class="nav" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+          <a href="index.html" class="logo" aria-label="World Cup Kits Home">
+            <img src="assets/img/logo.svg" alt="World Cup Kits Logo" width="40" height="40">
+            <span>World Cup Kits</span>
+          </a>
+          <ul class="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="kits.html" aria-current="page">Shop Kits</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="cart.html" class="cart-link" aria-label="Shopping cart">Cart (<span id="cart-count">0</span>)</a></li>
+          </ul>
+        </div>
+      </nav>
     </header>
 
     <main>
-        <section class="kits-section container">
-            <h1>World Cup Kits</h1>
-            
-            <!-- Filters -->
-            <div class="filters">
-                <div class="filter-group">
-                    <label for="team-filter">Team:</label>
-                    <select id="team-filter" aria-label="Filter by team">
-                        <option value="">All Teams</option>
-                        <!-- Teams will be populated by JavaScript -->
-                    </select>
-                </div>
-                
-                <div class="filter-group">
-                    <label>Year:</label>
-                    <div class="radio-group">
-                        <label>
-                            <input type="radio" name="year" value="" checked>
-                            All Years
-                        </label>
-                        <!-- Years will be populated by JavaScript -->
-                    </div>
-                </div>
-            </div>
+      <!-- Page Header -->
+      <section class="page-header">
+        <div class="container">
+          <h1>Shop All Kits</h1>
+          <p>Find your team's authentic World Cup replica jersey</p>
+        </div>
+      </section>
 
-            <!-- Kit Grid -->
-            <div class="grid" id="kits-grid">
-                <!-- Kits will be populated by JavaScript -->
+      <!-- Filters Section -->
+      <section class="filters-section">
+        <div class="container">
+          <div class="filters" role="region" aria-label="Filter options">
+            <div class="filter-group">
+              <label for="team-filter">Filter by Team:</label>
+              <select id="team-filter" aria-label="Filter kits by team">
+                <option value="all">All Teams</option>
+              </select>
             </div>
-        </section>
+            <div class="filter-group">
+              <fieldset class="year-filter">
+                <legend>Filter by Year:</legend>
+                <label><input type="radio" name="year" value="all" checked> All Years</label>
+                <label><input type="radio" name="year" value="2022"> 2022</label>
+                <label><input type="radio" name="year" value="2018"> 2018</label>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Kits Grid -->
+      <section class="kits-section">
+        <div class="container">
+          <div class="kits-grid" id="kits-grid">
+            <!-- Kits will be populated by JavaScript -->
+          </div>
+          <div id="no-results" class="no-results" style="display: none;">
+            <p>No kits found matching your filters. Try adjusting your selection.</p>
+          </div>
+        </div>
+      </section>
     </main>
 
-    <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2024 World Cup Kits Shop. Not officially associated with FIFA.</p>
-            <nav>
-                <a href="about.html">About</a>
-                <a href="about.html#contact">Contact</a>
-                <a href="about.html#privacy">Privacy</a>
-            </nav>
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>World Cup Kits</h3>
+            <p>Your destination for authentic World Cup replica jerseys and football merchandise.</p>
+          </div>
+          <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="kits.html">Shop Kits</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="cart.html">Shopping Cart</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Legal</h4>
+            <p><small>Not officially associated with FIFA or any football associations. Replica jerseys for fans.</small></p>
+          </div>
         </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 World Cup Kits. All rights reserved.</p>
+        </div>
+      </div>
     </footer>
 
     <!-- Scripts -->
-    <script type="module">
-        import { KITS, getTeams, getYears } from './js/data.js';
-        import { formatPrice, getCart } from './js/utils.js';
-
-        // Update cart count
-        const updateCartCount = () => {
-            const cart = getCart();
-            const count = cart.reduce((sum, item) => sum + item.qty, 0);
-            document.querySelector('.cart-count').textContent = count;
-        };
-
-        // Populate filters
-        const populateFilters = () => {
-            const teamFilter = document.getElementById('team-filter');
-            const teams = getTeams();
-            
-            teams.forEach(team => {
-                const option = document.createElement('option');
-                option.value = team;
-                option.textContent = team;
-                teamFilter.appendChild(option);
-            });
-
-            const years = getYears();
-            const yearGroup = document.querySelector('.radio-group');
-            
-            years.forEach(year => {
-                const label = document.createElement('label');
-                label.innerHTML = `
-                    <input type="radio" name="year" value="${year}">
-                    ${year}
-                `;
-                yearGroup.appendChild(label);
-            });
-        };
-
-        // Filter kits
-        const filterKits = () => {
-            const selectedTeam = document.getElementById('team-filter').value;
-            const selectedYear = document.querySelector('input[name="year"]:checked').value;
-            
-            return KITS.filter(kit => {
-                const teamMatch = !selectedTeam || kit.team === selectedTeam;
-                const yearMatch = !selectedYear || kit.year.toString() === selectedYear;
-                return teamMatch && yearMatch;
-            });
-        };
-
-        // Render kits
-        const renderKits = (kits) => {
-            const grid = document.getElementById('kits-grid');
-            grid.innerHTML = '';
-
-            kits.forEach(kit => {
-                const card = document.createElement('article');
-                card.className = 'kit-card';
-                card.innerHTML = `
-                    <img src="${kit.img}" alt="${kit.team} ${kit.variant} Kit ${kit.year}" loading="lazy">
-                    <div class="kit-card-content">
-                        <h3>${kit.team} ${kit.variant}</h3>
-                        <p class="year">${kit.year}</p>
-                        <p class="price">${formatPrice(kit.price)}</p>
-                        <a href="kit-detail.html?id=${kit.id}" class="btn">View Details</a>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        };
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            updateCartCount();
-            populateFilters();
-            renderKits(KITS);
-
-            // Add filter event listeners
-            document.getElementById('team-filter').addEventListener('change', () => {
-                renderKits(filterKits());
-            });
-
-            document.querySelectorAll('input[name="year"]').forEach(radio => {
-                radio.addEventListener('change', () => {
-                    renderKits(filterKits());
-                });
-            });
-        });
-    </script>
-</body>
-</html> 
+    <script type="module" src="js/utils.js"></script>
+    <script type="module" src="js/shop.js"></script>
+  </body>
+</html>
