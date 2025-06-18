@@ -88,7 +88,7 @@ class KitDetailManager {
     // Kit title with flag
     if (this.kitTitle) {
       this.kitTitle.innerHTML = `
-        <img src="assets/icons/${this.kit.team.toLowerCase()}.png" alt="${this.kit.team} flag" class="team-flag">
+        <img src="assets/icons/${this.kit.team.toLowerCase()}.svg" alt="${this.kit.team} flag" class="team-flag">
         ${this.kit.team} ${this.kit.variant} ${this.kit.year}
       `;
     }
@@ -170,7 +170,7 @@ class KitDetailManager {
         </div>
         <div class="kit-info">
           <h3 class="kit-title">
-            <img src="assets/icons/${kit.team.toLowerCase()}.png" alt="${kit.team} flag" class="team-flag">
+            <img src="assets/icons/${kit.team.toLowerCase()}.svg" alt="${kit.team} flag" class="team-flag">
             ${kit.team} ${kit.variant}
           </h3>
           <p class="kit-year">${kit.year}</p>
