@@ -5,10 +5,11 @@ import {
   saveCart, 
   updateQty, 
   removeItem, 
-  clearCart, 
-  updateCartCount, 
-  formatPrice, 
-  showNotification 
+  clearCart,
+  updateCartCount,
+  formatPrice,
+  showNotification,
+  getFlagIconPath
 } from './utils.js';
 
 class CartManager {
@@ -107,7 +108,7 @@ class CartManager {
           <img src="${kit.img}" alt="${kit.team} ${kit.variant}" class="cart-item-image">
           <div class="cart-item-details">
             <h4>
-              <img src="assets/icons/${kit.team.toLowerCase()}.svg" alt="${kit.team} flag" class="team-flag">
+              <img src="${getFlagIconPath(kit.team)}" alt="${kit.team} flag" class="team-flag">
               ${kit.team} ${kit.variant}
             </h4>
             <p>${kit.year} World Cup</p>

@@ -1,6 +1,6 @@
 // Shop page functionality - kit grid display and filtering
 import { KITS, getUniqueTeams, filterKits } from './data.js';
-import { addToCart, updateCartCount, showNotification } from './utils.js';
+import { addToCart, updateCartCount, showNotification, getFlagIconPath } from './utils.js';
 
 class ShopManager {
   constructor() {
@@ -66,7 +66,7 @@ class ShopManager {
       </div>
       <div class="kit-info">
         <h3 class="kit-title">
-          <img src="assets/icons/${kit.team.toLowerCase()}.svg" alt="${kit.team} flag" class="team-flag">
+          <img src="${getFlagIconPath(kit.team)}" alt="${kit.team} flag" class="team-flag">
           ${kit.team} ${kit.variant}
         </h3>
         <p class="kit-year">${kit.year}</p>
