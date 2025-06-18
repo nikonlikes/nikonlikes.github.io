@@ -82,6 +82,25 @@ export const updateCartCount = () => {
     }
   });
 };
+// Mapping of team names to flag file codes
+export const FLAG_CODES = {
+  Argentina: "ar",
+  Brazil: "br",
+  France: "fr",
+  England: "gb-eng",
+  Germany: "de",
+  Spain: "es",
+  Netherlands: "nl",
+  Portugal: "pt",
+  Belgium: "be",
+  Croatia: "hr"
+};
+
+export const getFlagIconPath = (team) => {
+  const code = FLAG_CODES[team] || team.toLowerCase();
+  return `assets/icons/${code}.svg`;
+};
+
 
 // Format price with currency
 export const formatPrice = (price) => {

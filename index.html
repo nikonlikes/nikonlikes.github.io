@@ -109,7 +109,7 @@
     <script type="module" src="js/utils.js"></script>
     <script type="module">
       import { KITS } from './js/data.js';
-      import { updateCartCount } from './js/utils.js';
+      import { updateCartCount, getFlagIconPath } from './js/utils.js';
 
       // Update cart count on page load
       updateCartCount();
@@ -127,7 +127,7 @@
           </div>
           <div class="kit-info">
             <h3 class="kit-title">
-              <img src="assets/icons/${kit.team.toLowerCase()}.png" alt="${kit.team} flag" class="team-flag">
+              <img src="${getFlagIconPath(kit.team)}" alt="${kit.team} flag" class="team-flag">
               ${kit.team} ${kit.variant}
             </h3>
             <p class="kit-year">${kit.year}</p>
