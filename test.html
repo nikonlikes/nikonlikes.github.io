@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Page</title>
+    <style>
+        .team-flag {
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .kit-card {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Test</h1>
+    <div id="test-container">
+        <!-- Content will be populated by JavaScript -->
+    </div>
+
+    <script type="module">
+        import { KITS } from './js/data.js';
+
+        console.log('KITS data:', KITS);
+
+        const container = document.getElementById('test-container');
+        const firstKit = KITS[0];
+
+        console.log('First kit:', firstKit);
+
+        if (firstKit) {
+            const testCard = document.createElement('div');
+            testCard.className = 'kit-card';
+            testCard.innerHTML = `
+                <h3>Test Kit: ${firstKit.team}</h3>
+                <p>Team Code: ${firstKit.teamCode}</p>
+                <p>Image Path: assets/icons/${firstKit.teamCode}.svg</p>
+                <img src="assets/icons/${firstKit.teamCode}.svg" alt="${firstKit.team} flag" class="team-flag">
+                <br><br>
+                <p>Direct test images:</p>
+                <img src="assets/icons/ar.svg" alt="Argentina" class="team-flag"> Argentina
+                <img src="assets/icons/br.svg" alt="Brazil" class="team-flag"> Brazil
+                <img src="assets/icons/fr.svg" alt="France" class="team-flag"> France
+            `;
+            container.appendChild(testCard);
+        }
+    </script>
+</body>
+</html> 

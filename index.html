@@ -106,10 +106,10 @@
     </footer>
 
     <!-- Scripts -->
-    <script type="module" src="js/utils.js"></script>
+    <script type="module" src="js/utils.js?v=2"></script>
     <script type="module">
-      import { KITS } from './js/data.js';
-      import { updateCartCount } from './js/utils.js';
+      import { KITS } from './js/data.js?v=2';
+      import { updateCartCount } from './js/utils.js?v=2';
 
       // Update cart count on page load
       updateCartCount();
@@ -127,7 +127,7 @@
           </div>
           <div class="kit-info">
             <h3 class="kit-title">
-              <img src="assets/icons/${kit.team.toLowerCase()}.svg" alt="${kit.team} flag" class="team-flag">
+              <img src="assets/icons/${kit.teamCode}.svg" alt="${kit.team} flag" class="team-flag">
               ${kit.team} ${kit.variant}
             </h3>
             <p class="kit-year">${kit.year}</p>

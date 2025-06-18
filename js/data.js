@@ -1,8 +1,23 @@
+// Team code mapping
+const TEAM_CODES = {
+  'Argentina': 'ar',
+  'Brazil': 'br',
+  'France': 'fr',
+  'England': 'gb-eng',
+  'Germany': 'de',
+  'Spain': 'es',
+  'Netherlands': 'nl',
+  'Portugal': 'pt',
+  'Belgium': 'be',
+  'Croatia': 'hr'
+};
+
 // Hard-coded World Cup kit data
 export const KITS = [
   {
     id: 'arg-home-2022',
     team: 'Argentina',
+    teamCode: 'ar',
     year: 2022,
     variant: 'Home',
     price: 99.99,
@@ -13,6 +28,7 @@ export const KITS = [
   {
     id: 'arg-away-2022',
     team: 'Argentina',
+    teamCode: 'ar',
     year: 2022,
     variant: 'Away',
     price: 94.99,
@@ -23,6 +39,7 @@ export const KITS = [
   {
     id: 'bra-home-2022',
     team: 'Brazil',
+    teamCode: 'br',
     year: 2022,
     variant: 'Home',
     price: 94.99,
@@ -33,6 +50,7 @@ export const KITS = [
   {
     id: 'bra-away-2022',
     team: 'Brazil',
+    teamCode: 'br',
     year: 2022,
     variant: 'Away',
     price: 94.99,
@@ -43,6 +61,7 @@ export const KITS = [
   {
     id: 'fra-home-2022',
     team: 'France',
+    teamCode: 'fr',
     year: 2022,
     variant: 'Home',
     price: 99.99,
@@ -53,6 +72,7 @@ export const KITS = [
   {
     id: 'eng-home-2022',
     team: 'England',
+    teamCode: 'gb-eng',
     year: 2022,
     variant: 'Home',
     price: 89.99,
@@ -63,6 +83,7 @@ export const KITS = [
   {
     id: 'ger-home-2018',
     team: 'Germany',
+    teamCode: 'de',
     year: 2018,
     variant: 'Home',
     price: 79.99,
@@ -73,6 +94,7 @@ export const KITS = [
   {
     id: 'esp-home-2022',
     team: 'Spain',
+    teamCode: 'es',
     year: 2022,
     variant: 'Home',
     price: 94.99,
@@ -83,6 +105,7 @@ export const KITS = [
   {
     id: 'ned-home-2022',
     team: 'Netherlands',
+    teamCode: 'nl',
     year: 2022,
     variant: 'Home',
     price: 92.99,
@@ -93,6 +116,7 @@ export const KITS = [
   {
     id: 'por-home-2022',
     team: 'Portugal',
+    teamCode: 'pt',
     year: 2022,
     variant: 'Home',
     price: 97.99,
@@ -103,6 +127,7 @@ export const KITS = [
   {
     id: 'bel-home-2018',
     team: 'Belgium',
+    teamCode: 'be',
     year: 2018,
     variant: 'Home',
     price: 84.99,
@@ -113,6 +138,7 @@ export const KITS = [
   {
     id: 'cro-home-2018',
     team: 'Croatia',
+    teamCode: 'hr',
     year: 2018,
     variant: 'Home',
     price: 89.99,
