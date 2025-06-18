@@ -66,7 +66,7 @@ class ShopManager {
       </div>
       <div class="kit-info">
         <h3 class="kit-title">
-          <img src="assets/icons/${kit.team.toLowerCase()}.png" alt="${kit.team} flag" class="team-flag">
+          <img src="assets/icons/${kit.team.toLowerCase()}.svg" alt="${kit.team} flag" class="team-flag">
           ${kit.team} ${kit.variant}
         </h3>
         <p class="kit-year">${kit.year}</p>
