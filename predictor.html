@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>World Cup Predictor - Test Your Football Fortune!</title>
+    <meta name="description" content="Make predictions on World Cup matches and test your football knowledge!" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+      .predictor-hero {
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #ffd700 100%);
+        color: white;
+        padding: 3rem 0;
+        text-align: center;
+      }
+      
+      .predictor-hero h1 {
+        font-size: clamp(2.5rem, 6vw, 4rem);
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      }
+      
+      .predictor-hero p {
+        font-size: clamp(1rem, 2.5vw, 1.25rem);
+        margin-bottom: 0.5rem;
+        max-width: none;
+      }
+      
+      .balance-card {
+        background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+        color: white;
+        padding: 2rem;
+        border-radius: 16px;
+        text-align: center;
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow-xl);
+      }
+      
+      .balance-amount {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin: 0.5rem 0;
+      }
+      
+      .match-card {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--color-border-light);
+      }
+      
+      .match-header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid var(--color-border);
+      }
+      
+      .match-header h3 {
+        color: var(--color-primary);
+        margin-bottom: 0.5rem;
+        font-size: 1.5rem;
+      }
+      
+      .match-header p {
+        color: var(--color-text-muted);
+        font-weight: var(--font-weight-medium);
+        margin-bottom: 0;
+      }
+      
+      .teams {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 1.5rem 0;
+      }
+      
+      .team {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        flex: 1;
+      }
+      
+      .team-flag {
+        width: 48px;
+        height: 48px;
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+      }
+      
+      .vs {
+        font-size: 2rem;
+        font-weight: bold;
+        color: var(--color-primary);
+        margin: 0 1rem;
+      }
+      
+      .betting-options {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+      
+      .bet-button {
+        background: linear-gradient(135deg, var(--color-background-alt), white);
+        border: 2px solid var(--color-border);
+        border-radius: 12px;
+        padding: 1rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: center;
+      }
+      
+      .bet-button:hover {
+        border-color: var(--color-primary);
+        background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+      }
+      
+      .bet-button.selected {
+        background: linear-gradient(135deg, var(--color-secondary), var(--color-secondary-dark));
+        border-color: var(--color-secondary);
+        color: white;
+        box-shadow: var(--shadow-lg);
+      }
+      
+      .odds {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: var(--color-success);
+      }
+      
+      .bet-amount {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 1rem;
+        justify-content: center;
+      }
+      
+      .bet-input {
+        width: 100px;
+        padding: 0.5rem;
+        border: 2px solid var(--color-border);
+        border-radius: 8px;
+        text-align: center;
+        font-weight: bold;
+      }
+      
+      .quick-bet {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 1rem;
+        justify-content: center;
+      }
+      
+      .quick-bet button {
+        background: var(--color-background-alt);
+        border: 1px solid var(--color-border);
+        border-radius: 6px;
+        padding: 0.25rem 0.75rem;
+        cursor: pointer;
+        font-size: 0.875rem;
+      }
+      
+      .quick-bet button:hover {
+        background: var(--color-primary);
+        color: white;
+      }
+      
+      .place-bet-btn {
+        background: linear-gradient(135deg, var(--color-success), #2d7a2d);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 1rem 2rem;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 1rem;
+        width: 100%;
+        transition: all 0.2s ease;
+      }
+      
+      .place-bet-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+      }
+      
+      .place-bet-btn:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+        transform: none;
+      }
+      
+      .notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        color: white;
+        font-weight: bold;
+        z-index: 1000;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+      }
+      
+      .notification.show {
+        transform: translateX(0);
+      }
+      
+      .notification.success {
+        background: var(--color-success);
+      }
+      
+      .notification.error {
+        background: var(--color-error);
+      }
+      
+      .notification.warning {
+        background: var(--color-warning);
+      }
+      
+      .leaderboard {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        margin-top: 2rem;
+        box-shadow: var(--shadow-lg);
+      }
+      
+      .fortune-wheel {
+        width: 100%;
+        height: 100%;
+        border: 8px solid var(--color-primary);
+        border-radius: 50%;
+        position: relative;
+        background: conic-gradient(
+          #ff6b35 0deg 60deg,
+          #ffd700 60deg 120deg,
+          #4ecdc4 120deg 180deg,
+          #45b7d1 180deg 240deg,
+          #96ceb4 240deg 300deg,
+          #feca57 300deg 360deg
+        );
+        cursor: pointer;
+        transition: transform 2s ease-out;
+      }
+      
+      .wheel-container {
+        position: relative;
+        width: 240px;
+        height: 240px;
+        margin: 2rem auto;
+      }
+      
+      .wheel-segment {
+        position: absolute;
+        width: 50%;
+        height: 50%;
+        transform-origin: 100% 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1rem;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        pointer-events: none;
+      }
+      
+      .wheel-segment .number-badge {
+        background: rgba(0,0,0,0.4);
+        border: 2px solid white;
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+        font-weight: bold;
+      }
+      
+      /* Position segments around the wheel - each 60 degrees apart */
+      .wheel-segment:nth-child(1) { transform: rotate(30deg); } /* 25 - orange segment */
+      .wheel-segment:nth-child(2) { transform: rotate(90deg); } /* 50 - gold segment */
+      .wheel-segment:nth-child(3) { transform: rotate(150deg); } /* 100 - teal segment */
+      .wheel-segment:nth-child(4) { transform: rotate(210deg); } /* 200 - blue segment */
+      .wheel-segment:nth-child(5) { transform: rotate(270deg); } /* 500 - green segment */
+      .wheel-segment:nth-child(6) { transform: rotate(330deg); } /* 1000 - yellow segment */
+      
+      .fixed-pointer {
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        border-top: 20px solid var(--color-primary);
+        z-index: 20;
+        pointer-events: none;
+      }
+      
+
+      
+      .wheel-center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50px;
+        height: 50px;
+        background: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 0.75rem;
+        box-shadow: var(--shadow-lg);
+        z-index: 10;
+        border: 3px solid var(--color-primary);
+      }
+      
+      @media (max-width: 768px) {
+        .betting-options {
+          grid-template-columns: 1fr;
+        }
+        
+        .teams {
+          flex-direction: column;
+          gap: 1rem;
+        }
+        
+        .vs {
+          margin: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Header -->
+    <header class="header">
+      <nav class="nav" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+          <a href="index.html" class="logo" aria-label="World Cup Kits Home">
+            <img src="assets/img/logo.svg" alt="World Cup Kits Logo" width="40" height="40">
+            <span>World Cup Kits</span>
+          </a>
+          <ul class="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="kits.html">Shop Kits</a></li>
+            <li><a href="predictor.html" aria-current="page">Predictor</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="cart.html" class="cart-link" aria-label="Shopping cart">Cart (<span id="cart-count">0</span>)</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Hero Section -->
+      <section class="predictor-hero">
+        <div class="container">
+          <h1>🏆 World Cup Predictor 🏆</h1>
+          <p>Test your football fortune! Make predictions and earn points!</p>
+          <p><em>*This is just for fun - no real money involved!*</em></p>
+        </div>
+      </section>
+
+      <!-- Balance Section -->
+      <section class="container" style="margin-top: 2rem;">
+        <div class="balance-card">
+          <h2>Your Fortune Points</h2>
+          <div class="balance-amount" id="balance">1000</div>
+          <p>Start with 1000 points and see how high you can go!</p>
+        </div>
+      </section>
+
+      <!-- Lucky Wheel Section -->
+      <section class="container">
+        <div class="content-section" style="text-align: center;">
+          <h2 style="color: var(--color-primary); margin-bottom: 1rem;">🎰 Lucky Wheel 🎰</h2>
+          <p style="font-size: 1.125rem; color: var(--color-text-light); margin-bottom: 1rem;">Spin the wheel for bonus points! (Costs 50 points per spin)</p>
+          <div class="wheel-container">
+            <div class="fixed-pointer"></div>
+            <div class="fortune-wheel" id="fortune-wheel">
+              <div class="wheel-segment">
+                <div class="number-badge">25</div>
+              </div>
+              <div class="wheel-segment">
+                <div class="number-badge">50</div>
+              </div>
+              <div class="wheel-segment">
+                <div class="number-badge">100</div>
+              </div>
+              <div class="wheel-segment">
+                <div class="number-badge">200</div>
+              </div>
+              <div class="wheel-segment">
+                <div class="number-badge">500</div>
+              </div>
+              <div class="wheel-segment">
+                <div class="number-badge">1000</div>
+              </div>
+              <div class="wheel-center">SPIN</div>
+            </div>
+          </div>
+          <p style="font-size: 1rem; color: var(--color-text-muted); margin-top: 1rem;">
+            🎯 Each colored segment shows the points you can win!
+          </p>
+        </div>
+      </section>
+
+      <!-- Matches Section -->
+      <section class="container">
+        <h2 class="section-title">Upcoming Matches</h2>
+        <div id="matches-container">
+          <!-- Matches will be populated by JavaScript -->
+        </div>
+      </section>
+
+      <!-- Leaderboard Section -->
+      <section class="container">
+        <div class="leaderboard">
+          <h2 style="text-align: center; margin-bottom: 1.5rem;">🏅 Top Predictors 🏅</h2>
+          <div id="leaderboard-list">
+            <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--color-border);">
+              <span>🥇 Football Oracle</span>
+              <span style="font-weight: bold;">15,847 points</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--color-border);">
+              <span>🥈 Prediction King</span>
+              <span style="font-weight: bold;">12,334 points</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--color-border);">
+              <span>🥉 Lucky Guesser</span>
+              <span style="font-weight: bold;">9,876 points</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--color-border);">
+              <span>4️⃣ Soccer Sage</span>
+              <span style="font-weight: bold;">7,432 points</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--color-border); background: rgba(255, 215, 0, 0.1);">
+              <span>5️⃣ You</span>
+              <span style="font-weight: bold;" id="your-rank-points">1,000 points</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>World Cup Kits</h3>
+            <p>Your destination for authentic World Cup replica jerseys and football merchandise.</p>
+          </div>
+          <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="kits.html">Shop Kits</a></li>
+              <li><a href="predictor.html">Predictor Game</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="cart.html">Shopping Cart</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Legal</h4>
+            <p><small>This is a fun prediction game only. No real betting or gambling involved. Not officially associated with FIFA.</small></p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 World Cup Kits. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/utils.js?v=2"></script>
+    <script type="module" src="js/predictor.js"></script>
+  </body>
+</html> 
