@@ -43,16 +43,43 @@ const MATCHES = [
 // Fortune wheel prizes
 const WHEEL_PRIZES = [25, 50, 100, 200, 500, 1000];
 
+// Achievement system
+const ACHIEVEMENTS = {
+  'first_bet': { name: '🎯 First Shot', description: 'Place your first bet', points: 50 },
+  'lucky_wheel': { name: '🎰 Lucky Spinner', description: 'Spin the wheel 5 times', points: 100 },
+  'win_streak_3': { name: '🔥 Hot Streak', description: 'Win 3 bets in a row', points: 200 },
+  'win_streak_5': { name: '⚡ Lightning Strike', description: 'Win 5 bets in a row', points: 500 },
+  'big_winner': { name: '💰 Big Winner', description: 'Win over 1000 points in one bet', points: 300 },
+  'millionaire': { name: '👑 Millionaire', description: 'Reach 10,000 points', points: 1000 },
+  'daily_challenge': { name: '📅 Daily Champion', description: 'Complete daily challenge', points: 500 },
+  'risk_taker': { name: '💀 Risk Taker', description: 'Bet 500+ points in one go', points: 250 }
+};
+
+// Daily challenges
+const DAILY_CHALLENGES = [
+  { id: 'win_3', text: 'Make 3 correct predictions today!', target: 3, reward: 500 },
+  { id: 'bet_total', text: 'Bet a total of 1000 points today!', target: 1000, reward: 300 },
+  { id: 'spin_wheel', text: 'Spin the wheel 3 times today!', target: 3, reward: 400 }
+];
+
 class PredictorGame {
   constructor() {
     this.balance = this.loadBalance();
     this.bets = this.loadBets();
     this.isSpinning = false;
+    this.winStreak = this.loadWinStreak();
+    this.achievements = this.loadAchievements();
+    this.dailyProgress = this.loadDailyProgress();
+    this.wheelSpins = this.loadWheelSpins();
+    this.multiplier = 1;
     this.init();
   }
 
   init() {
     this.updateBalance();
+    this.updateStreak();
+    this.updateAchievements();
+    this.updateDailyChallenge();
     this.renderMatches();
     this.bindEvents();
     updateCartCount();
@@ -75,14 +102,96 @@ class PredictorGame {
     localStorage.setItem('predictor_bets', JSON.stringify(this.bets));
   }
 
+  loadWinStreak() {
+    return parseInt(localStorage.getItem('predictor_streak') || '0');
+  }
+
+  saveWinStreak() {
+    localStorage.setItem('predictor_streak', this.winStreak.toString());
+  }
+
+  loadAchievements() {
+    return JSON.parse(localStorage.getItem('predictor_achievements') || '[]');
+  }
+
+  saveAchievements() {
+    localStorage.setItem('predictor_achievements', JSON.stringify(this.achievements));
+  }
+
+  loadDailyProgress() {
+    const today = new Date().toDateString();
+    const stored = JSON.parse(localStorage.getItem('predictor_daily') || '{}');
+    if (stored.date !== today) {
+      return { date: today, wins: 0, totalBet: 0, wheelSpins: 0 };
+    }
+    return stored;
+  }
+
+  saveDailyProgress() {
+    localStorage.setItem('predictor_daily', JSON.stringify(this.dailyProgress));
+  }
+
+  loadWheelSpins() {
+    return parseInt(localStorage.getItem('predictor_wheel_spins') || '0');
+  }
+
+  saveWheelSpins() {
+    localStorage.setItem('predictor_wheel_spins', this.wheelSpins.toString());
+  }
+
   updateBalance() {
     const balanceEl = document.getElementById('balance');
     const yourRankEl = document.getElementById('your-rank-points');
     if (balanceEl) {
       balanceEl.textContent = this.balance.toLocaleString();
+      // Add pulse animation when balance changes
+      balanceEl.classList.add('pulse');
+      setTimeout(() => balanceEl.classList.remove('pulse'), 600);
     }
     if (yourRankEl) {
       yourRankEl.textContent = `${this.balance.toLocaleString()} points`;
+    }
+    
+    // Check for millionaire achievement
+    if (this.balance >= 10000 && !this.achievements.includes('millionaire')) {
+      this.unlockAchievement('millionaire');
+    }
+  }
+
+  updateStreak() {
+    const streakEl = document.getElementById('streak-count');
+    if (streakEl) {
+      streakEl.textContent = this.winStreak;
+    }
+  }
+
+  updateAchievements() {
+    const previewEl = document.getElementById('achievements-preview');
+    if (!previewEl) return;
+    
+    previewEl.innerHTML = '';
+    this.achievements.slice(-3).forEach(achievementId => {
+      const achievement = ACHIEVEMENTS[achievementId];
+      if (achievement) {
+        const badge = document.createElement('span');
+        badge.className = 'achievement-badge';
+        badge.textContent = achievement.name;
+        badge.title = achievement.description;
+        previewEl.appendChild(badge);
+      }
+    });
+  }
+
+  updateDailyChallenge() {
+    const challenge = DAILY_CHALLENGES[0]; // Use first challenge for demo
+    const progressEl = document.getElementById('challenge-progress');
+    if (progressEl && challenge) {
+      const progress = Math.min((this.dailyProgress.wins / challenge.target) * 100, 100);
+      progressEl.style.width = `${progress}%`;
+      
+      if (progress >= 100 && !this.achievements.includes('daily_challenge')) {
+        this.unlockAchievement('daily_challenge');
+      }
     }
   }
 
@@ -92,6 +201,57 @@ class PredictorGame {
     if (yourRankEl) {
       yourRankEl.textContent = `${this.balance.toLocaleString()} points`;
     }
+  }
+
+  unlockAchievement(achievementId) {
+    if (this.achievements.includes(achievementId)) return;
+    
+    this.achievements.push(achievementId);
+    this.saveAchievements();
+    
+    const achievement = ACHIEVEMENTS[achievementId];
+    this.balance += achievement.points;
+    this.saveBalance();
+    this.updateBalance();
+    this.updateAchievements();
+    
+    // Show achievement notification
+    this.showNotification(
+      `🏆 Achievement Unlocked: ${achievement.name}! +${achievement.points} points`,
+      'success'
+    );
+    
+    // Create particles effect
+    this.createParticles(document.getElementById('balance'));
+  }
+
+  createParticles(element) {
+    if (!element) return;
+    
+    const rect = element.getBoundingClientRect();
+    for (let i = 0; i < 10; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.position = 'fixed';
+      particle.style.left = rect.left + rect.width / 2 + 'px';
+      particle.style.top = rect.top + rect.height / 2 + 'px';
+      particle.style.transform = `translate(${(Math.random() - 0.5) * 100}px, 0)`;
+      document.body.appendChild(particle);
+      
+      setTimeout(() => particle.remove(), 3000);
+    }
+  }
+
+  showMultiplier(multiplier) {
+    const multiplierEl = document.getElementById('multiplier-display');
+    if (!multiplierEl) return;
+    
+    multiplierEl.textContent = `${multiplier}x MULTIPLIER!`;
+    multiplierEl.style.display = 'block';
+    
+    setTimeout(() => {
+      multiplierEl.style.display = 'none';
+    }, 2000);
   }
 
   renderMatches() {
@@ -109,10 +269,16 @@ class PredictorGame {
   createMatchCard(match) {
     const card = document.createElement('div');
     card.className = 'match-card';
+    
+    // Calculate streak multiplier
+    const streakMultiplier = this.winStreak >= 3 ? 1.5 : 1;
+    const showMultiplier = streakMultiplier > 1;
+    
     card.innerHTML = `
       <div class="match-header">
         <h3>${match.stage}</h3>
         <p>${new Date(match.date).toLocaleDateString()} at ${match.time}</p>
+        ${showMultiplier ? `<div style="background: #4ade80; color: white; padding: 0.3rem 0.8rem; border-radius: 12px; font-size: 0.8rem; font-weight: bold; margin-top: 0.5rem;">🔥 ${streakMultiplier}x Streak Bonus!</div>` : ''}
       </div>
       
       <div class="teams">
@@ -130,15 +296,15 @@ class PredictorGame {
       <div class="betting-options">
         <div class="bet-button" data-match="${match.id}" data-outcome="team1">
           <div><strong>${match.team1.name} Wins</strong></div>
-          <div class="odds">${match.odds.team1}x</div>
+          <div class="odds">${(match.odds.team1 * streakMultiplier).toFixed(1)}x</div>
         </div>
         <div class="bet-button" data-match="${match.id}" data-outcome="draw">
           <div><strong>Draw</strong></div>
-          <div class="odds">${match.odds.draw}x</div>
+          <div class="odds">${(match.odds.draw * streakMultiplier).toFixed(1)}x</div>
         </div>
         <div class="bet-button" data-match="${match.id}" data-outcome="team2">
           <div><strong>${match.team2.name} Wins</strong></div>
-          <div class="odds">${match.odds.team2}x</div>
+          <div class="odds">${(match.odds.team2 * streakMultiplier).toFixed(1)}x</div>
         </div>
       </div>
 
@@ -234,13 +400,27 @@ class PredictorGame {
       return;
     }
 
+    // Check for achievements
+    if (this.achievements.length === 0) {
+      this.unlockAchievement('first_bet');
+    }
+    
+    if (betAmount >= 500 && !this.achievements.includes('risk_taker')) {
+      this.unlockAchievement('risk_taker');
+    }
+
     // Place the bet
     this.balance -= betAmount;
     this.saveBalance();
     this.updateBalance();
+    
+    // Update daily progress
+    this.dailyProgress.totalBet += betAmount;
+    this.saveDailyProgress();
 
-    // Store bet
-    this.bets[matchId] = { outcome, amount: betAmount };
+    // Store bet with streak multiplier
+    const streakMultiplier = this.winStreak >= 3 ? 1.5 : 1;
+    this.bets[matchId] = { outcome, amount: betAmount, multiplier: streakMultiplier };
     this.saveBets();
 
     // Simulate immediate result (for demo purposes)
@@ -267,21 +447,65 @@ class PredictorGame {
     
     let winnings = 0;
     if (bet.outcome === actualOutcome) {
-      winnings = Math.floor(betAmount * match.odds[actualOutcome]);
+      // Calculate winnings with multiplier
+      const baseWinnings = Math.floor(betAmount * match.odds[actualOutcome]);
+      winnings = Math.floor(baseWinnings * (bet.multiplier || 1));
+      
       this.balance += winnings;
       this.saveBalance();
       this.updateBalance();
+      
+      // Update win streak
+      this.winStreak++;
+      this.saveWinStreak();
+      this.updateStreak();
+      
+      // Update daily progress
+      this.dailyProgress.wins++;
+      this.saveDailyProgress();
+      this.updateDailyChallenge();
+      
+      // Check for streak achievements
+      if (this.winStreak === 3 && !this.achievements.includes('win_streak_3')) {
+        this.unlockAchievement('win_streak_3');
+      }
+      if (this.winStreak === 5 && !this.achievements.includes('win_streak_5')) {
+        this.unlockAchievement('win_streak_5');
+      }
+      
+      // Check for big winner achievement
+      if (winnings >= 1000 && !this.achievements.includes('big_winner')) {
+        this.unlockAchievement('big_winner');
+      }
+      
+      // Show multiplier if applicable
+      if (bet.multiplier && bet.multiplier > 1) {
+        this.showMultiplier(bet.multiplier);
+      }
+      
+      // Create particles effect
+      this.createParticles(document.getElementById('balance'));
       
       this.showNotification(
         `🎉 You won! ${this.getOutcomeText(matchId, actualOutcome)} happened! You earned ${winnings} points!`,
         'success'
       );
     } else {
+      // Reset win streak on loss
+      this.winStreak = 0;
+      this.saveWinStreak();
+      this.updateStreak();
+      
       this.showNotification(
         `😔 You lost! ${this.getOutcomeText(matchId, actualOutcome)} happened. Better luck next time!`,
         'error'
       );
     }
+    
+    // Re-render matches to update multipliers
+    setTimeout(() => {
+      this.renderMatches();
+    }, 1000);
   }
 
   getOutcomeText(matchId, outcome) {
@@ -318,6 +542,19 @@ class PredictorGame {
     this.balance -= 50;
     this.saveBalance();
     this.updateBalance();
+    
+    // Update wheel spins for achievements
+    this.wheelSpins++;
+    this.saveWheelSpins();
+    
+    // Update daily progress
+    this.dailyProgress.wheelSpins++;
+    this.saveDailyProgress();
+    
+    // Check for wheel achievement
+    if (this.wheelSpins >= 5 && !this.achievements.includes('lucky_wheel')) {
+      this.unlockAchievement('lucky_wheel');
+    }
 
     const wheel = document.getElementById('fortune-wheel');
     const spins = 5 + Math.random() * 5; // 5-10 full rotations
@@ -326,12 +563,23 @@ class PredictorGame {
     wheel.style.transform = `rotate(${finalRotation}deg)`;
 
     setTimeout(() => {
-      const prizeIndex = Math.floor(Math.random() * WHEEL_PRIZES.length);
+      // Better odds for higher prizes if on a streak
+      let prizeIndex;
+      if (this.winStreak >= 3) {
+        prizeIndex = Math.floor(Math.random() * WHEEL_PRIZES.length * 0.8) + Math.floor(WHEEL_PRIZES.length * 0.2);
+        prizeIndex = Math.min(prizeIndex, WHEEL_PRIZES.length - 1);
+      } else {
+        prizeIndex = Math.floor(Math.random() * WHEEL_PRIZES.length);
+      }
+      
       const prize = WHEEL_PRIZES[prizeIndex];
       
       this.balance += prize;
       this.saveBalance();
       this.updateBalance();
+      
+      // Create particles effect
+      this.createParticles(wheel);
       
       this.showNotification(`🎰 You won ${prize} points!`, 'success');
       this.isSpinning = false;

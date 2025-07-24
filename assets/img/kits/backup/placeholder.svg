@@ -1,0 +1,30 @@
+<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="jerseyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8f9fa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e9ecef;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Jersey Background -->
+  <rect width="400" height="400" fill="#f8f9fa"/>
+  
+  <!-- Jersey Shape -->
+  <path d="M100 80 L120 60 L160 60 L160 80 L180 80 L180 120 L160 120 L160 140 L240 140 L240 120 L220 120 L220 80 L240 80 L240 60 L280 60 L300 80 L300 340 L100 340 Z" 
+        fill="url(#jerseyGradient)" 
+        stroke="#dee2e6" 
+        stroke-width="2"/>
+  
+  <!-- Jersey Details -->
+  <circle cx="140" cy="100" r="8" fill="#6c757d"/>
+  <circle cx="260" cy="100" r="8" fill="#6c757d"/>
+  <rect x="180" y="200" width="40" height="20" fill="#6c757d" opacity="0.3"/>
+  
+  <!-- Text -->
+  <text x="200" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#6c757d">
+    Jersey Image
+  </text>
+  <text x="200" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#6c757d">
+    Coming Soon
+  </text>
+</svg>

@@ -49,9 +49,26 @@
         </div>
       </section>
 
-      <!-- Filters Section -->
-      <section class="filters-section">
+      <!-- Search and Filters Section -->
+      <section class="search-filters-section">
         <div class="container">
+          <!-- Search Bar -->
+          <div class="search-section">
+            <div class="search-bar">
+              <input 
+                type="text" 
+                id="search-input" 
+                placeholder="Search kits by team, year, or variant..." 
+                aria-label="Search kits"
+                class="search-input"
+              >
+              <button type="button" id="clear-search" class="clear-search-btn" aria-label="Clear search">
+                <span>&times;</span>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Filters -->
           <div class="filters" role="region" aria-label="Filter options">
             <div class="filter-group">
               <label for="team-filter">Filter by Team:</label>

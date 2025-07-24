@@ -21,10 +21,31 @@
     <link rel="stylesheet" href="css/style.css">
     <style>
       .predictor-hero {
-        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #ffd700 100%);
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 30%, #ffd700 60%, #ff6b35 100%);
+        background-size: 200% 200%;
+        animation: gradientShift 6s ease infinite;
         color: white;
         padding: 3rem 0;
         text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      
+      .predictor-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="white" opacity="0.3"><animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/></circle><circle cx="80" cy="30" r="1.5" fill="white" opacity="0.5"><animate attributeName="opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite"/></circle><circle cx="60" cy="70" r="1" fill="white" opacity="0.4"><animate attributeName="opacity" values="0.4;1;0.4" dur="2.5s" repeatCount="indefinite"/></circle></svg>') repeat;
+        pointer-events: none;
       }
       
       .predictor-hero h1 {
@@ -40,19 +61,59 @@
       }
       
       .balance-card {
-        background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+        background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark), var(--color-secondary));
+        background-size: 200% 200%;
+        animation: balanceGlow 4s ease infinite;
         color: white;
         padding: 2rem;
-        border-radius: 16px;
+        border-radius: 20px;
         text-align: center;
         margin-bottom: 2rem;
-        box-shadow: var(--shadow-xl);
+        box-shadow: var(--shadow-xl), 0 0 30px rgba(26, 95, 63, 0.3);
+        position: relative;
+        overflow: hidden;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+      }
+      
+      @keyframes balanceGlow {
+        0%, 100% { background-position: 0% 50%; box-shadow: var(--shadow-xl), 0 0 30px rgba(26, 95, 63, 0.3); }
+        50% { background-position: 100% 50%; box-shadow: var(--shadow-xl), 0 0 40px rgba(212, 175, 55, 0.4); }
+      }
+      
+      .balance-card::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+        transform: rotate(45deg);
+        animation: shimmer 3s infinite;
+      }
+      
+      @keyframes shimmer {
+        0% { transform: translateX(-100%) rotate(45deg); }
+        100% { transform: translateX(100%) rotate(45deg); }
       }
       
       .balance-amount {
         font-size: 2.5rem;
         font-weight: bold;
         margin: 0.5rem 0;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        position: relative;
+        z-index: 1;
+        transition: all 0.3s ease;
+      }
+      
+      .balance-amount.pulse {
+        animation: balancePulse 0.6s ease;
+      }
+      
+      @keyframes balancePulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); color: #ffd700; }
       }
       
       .match-card {
@@ -133,15 +194,53 @@
         border-color: var(--color-primary);
         background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
         color: white;
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-lg);
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: var(--shadow-lg), 0 0 20px rgba(26, 95, 63, 0.4);
+        animation: buttonGlow 0.3s ease;
+      }
+      
+      @keyframes buttonGlow {
+        0% { box-shadow: var(--shadow-lg); }
+        100% { box-shadow: var(--shadow-lg), 0 0 20px rgba(26, 95, 63, 0.4); }
       }
       
       .bet-button.selected {
         background: linear-gradient(135deg, var(--color-secondary), var(--color-secondary-dark));
         border-color: var(--color-secondary);
         color: white;
-        box-shadow: var(--shadow-lg);
+        box-shadow: var(--shadow-lg), 0 0 25px rgba(212, 175, 55, 0.5);
+        transform: scale(1.05);
+        animation: selectedPulse 2s infinite;
+        position: relative;
+      }
+      
+      @keyframes selectedPulse {
+        0%, 100% { box-shadow: var(--shadow-lg), 0 0 25px rgba(212, 175, 55, 0.5); }
+        50% { box-shadow: var(--shadow-lg), 0 0 35px rgba(212, 175, 55, 0.7); }
+      }
+      
+      .bet-button.selected::after {
+        content: '✓';
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: #4ade80;
+        color: white;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: bold;
+        animation: checkmarkBounce 0.5s ease;
+      }
+      
+      @keyframes checkmarkBounce {
+        0% { transform: scale(0); }
+        50% { transform: scale(1.2); }
+        100% { transform: scale(1); }
       }
       
       .odds {
@@ -345,6 +444,137 @@
         border: 3px solid var(--color-primary);
       }
       
+      /* Achievement and Streak Styles */
+      .streak-display {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 0.5rem 1rem;
+        border-radius: 12px;
+        display: inline-block;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      
+      .streak-count {
+        font-weight: bold;
+        font-size: 1.2rem;
+        color: #ffd700;
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+      }
+      
+      .achievement-badge {
+        background: linear-gradient(135deg, #ffd700, #ffed4a);
+        color: #333;
+        padding: 0.3rem 0.6rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+        animation: badgeFloat 3s ease infinite;
+        cursor: pointer;
+        position: relative;
+      }
+      
+      @keyframes badgeFloat {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-2px); }
+      }
+      
+      .achievement-badge.new {
+        animation: newBadge 1s ease;
+      }
+      
+      @keyframes newBadge {
+        0% { transform: scale(0) rotate(180deg); opacity: 0; }
+        50% { transform: scale(1.2) rotate(0deg); opacity: 1; }
+        100% { transform: scale(1) rotate(0deg); opacity: 1; }
+      }
+      
+      /* Particle Effects */
+      .particle {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background: #ffd700;
+        border-radius: 50%;
+        pointer-events: none;
+        animation: particleFloat 3s ease-out forwards;
+      }
+      
+      @keyframes particleFloat {
+        0% {
+          transform: translateY(0) scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100px) scale(0);
+          opacity: 0;
+        }
+      }
+      
+      /* Daily Challenge Section */
+      .daily-challenge {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 16px;
+        margin-bottom: 2rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .daily-challenge::before {
+        content: '🏆';
+        position: absolute;
+        top: -20px;
+        right: -20px;
+        font-size: 4rem;
+        opacity: 0.1;
+        transform: rotate(15deg);
+      }
+      
+      .challenge-progress {
+        background: rgba(255, 255, 255, 0.2);
+        height: 8px;
+        border-radius: 4px;
+        margin: 1rem 0;
+        overflow: hidden;
+      }
+      
+      .challenge-progress-bar {
+        background: #4ade80;
+        height: 100%;
+        border-radius: 4px;
+        transition: width 0.5s ease;
+        box-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
+      }
+      
+      /* Multiplier Display */
+      .multiplier-display {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(135deg, #ff6b35, #ffd700);
+        color: white;
+        padding: 2rem;
+        border-radius: 20px;
+        font-size: 2rem;
+        font-weight: bold;
+        z-index: 1000;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        opacity: 0;
+        animation: multiplierShow 2s ease;
+        pointer-events: none;
+      }
+      
+      @keyframes multiplierShow {
+        0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+        20% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+        80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+      }
+      
       @media (max-width: 768px) {
         .betting-options {
           grid-template-columns: 1fr;
@@ -357,6 +587,11 @@
         
         .vs {
           margin: 0;
+        }
+        
+        .multiplier-display {
+          font-size: 1.5rem;
+          padding: 1.5rem;
         }
       }
     </style>
@@ -397,6 +632,13 @@
           <h2>Your Fortune Points</h2>
           <div class="balance-amount" id="balance">1000</div>
           <p>Start with 1000 points and see how high you can go!</p>
+          <div id="streak-display" class="streak-display" style="margin-top: 1rem;">
+            <span class="streak-label">🔥 Win Streak:</span>
+            <span class="streak-count" id="streak-count">0</span>
+          </div>
+          <div id="achievements-preview" class="achievements-preview" style="margin-top: 1rem; display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
+            <!-- Achievement badges will be populated by JavaScript -->
+          </div>
         </div>
       </section>
 
@@ -432,6 +674,18 @@
           <p style="font-size: 1rem; color: var(--color-text-muted); margin-top: 1rem;">
             🎯 Each colored segment shows the points you can win!
           </p>
+        </div>
+      </section>
+
+      <!-- Daily Challenge Section -->
+      <section class="container">
+        <div class="daily-challenge">
+          <h3 style="margin-bottom: 0.5rem;">🏆 Daily Challenge</h3>
+          <p id="daily-challenge-text">Make 3 correct predictions today!</p>
+          <div class="challenge-progress">
+            <div class="challenge-progress-bar" id="challenge-progress" style="width: 0%;"></div>
+          </div>
+          <p style="margin-bottom: 0; font-size: 0.9rem; opacity: 0.9;">Reward: <strong>500 bonus points</strong></p>
         </div>
       </section>
 
@@ -502,7 +756,7 @@
     </footer>
 
     <!-- Notification -->
-    <div id="notification" class="notification"></div>
+    <div id="notification" class="notification"></div>\n\n    <!-- Multiplier Display -->\n    <div id="multiplier-display" class="multiplier-display" style="display: none;"></div>
 
     <!-- Scripts -->
     <script type="module" src="js/utils.js?v=2"></script>

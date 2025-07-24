@@ -7,10 +7,13 @@ class ShopManager {
     this.kitsGrid = document.getElementById('kits-grid');
     this.teamFilter = document.getElementById('team-filter');
     this.yearFilters = document.querySelectorAll('input[name="year"]');
+    this.searchInput = document.getElementById('search-input');
+    this.clearSearchBtn = document.getElementById('clear-search');
     this.noResults = document.getElementById('no-results');
     
     this.currentTeamFilter = 'all';
     this.currentYearFilter = 'all';
+    this.currentSearchQuery = '';
     
     this.init();
   }
@@ -55,14 +58,56 @@ class ShopManager {
     });
   }
 
+  // Enhanced image loading with format fallback
+  handleImageError(img, kit) {
+    const fallbackLevel = parseInt(img.dataset.fallbackLevel || '0');
+    
+    if (kit && kit.images) {
+      // Try fallback formats in order: webp -> jpg -> svg -> placeholder
+      const fallbackOrder = ['webp', 'jpg', 'svg', 'fallback'];
+      const nextFallback = fallbackOrder[fallbackLevel + 1];
+      
+      if (nextFallback && kit.images[nextFallback]) {
+        img.dataset.fallbackLevel = (fallbackLevel + 1).toString();
+        img.src = kit.images[nextFallback];
+        return;
+      }
+    }
+    
+    // Final fallback
+    if (!img.dataset.finalFallback) {
+      img.dataset.finalFallback = 'true';
+      img.src = 'assets/img/kits/placeholder.svg';
+    }
+  }
+
+  // Load optimal image format
+  loadOptimalImage(kit) {
+    // Check for WebP support and return best format
+    if (kit.images) {
+      // Try to use auto-detected format first
+      return kit.images.auto || kit.img;
+    }
+    return kit.img;
+  }
+
   // Create individual kit card element
   createKitCard(kit) {
     const card = document.createElement('div');
-    card.className = 'kit-card';
+    card.className = 'kit-card clickable-card';
+    card.dataset.kitId = kit.id;
+    
+    const optimalImageSrc = this.loadOptimalImage(kit);
     
     card.innerHTML = `
       <div class="kit-image">
-        <img src="${kit.img}" alt="${kit.team} ${kit.variant} ${kit.year}" loading="lazy">
+        <img 
+          src="${optimalImageSrc}" 
+          alt="${kit.team} ${kit.variant} ${kit.year}" 
+          loading="lazy"
+          data-kit-id="${kit.id}"
+          onerror="this.closest('.kit-card').dispatchEvent(new CustomEvent('imageError', {detail: {img: this, kit: arguments[0]}}))"
+        >
       </div>
       <div class="kit-info">
         <h3 class="kit-title">
@@ -89,6 +134,11 @@ class ShopManager {
         </div>
       </div>
     `;
+
+    // Add enhanced error handling for the card
+    card.addEventListener('imageError', (event) => {
+      this.handleImageError(event.detail.img, kit);
+    });
 
     return card;
   }
@@ -143,6 +193,58 @@ class ShopManager {
     }
   }
 
+  // Search through kits based on query
+  searchKits(query) {
+    if (!query.trim()) return KITS;
+    
+    const searchTerm = query.toLowerCase().trim();
+    return KITS.filter(kit => {
+      return kit.team.toLowerCase().includes(searchTerm) ||
+             kit.variant.toLowerCase().includes(searchTerm) ||
+             kit.year.toString().includes(searchTerm);
+    });
+  }
+
+  // Handle search input
+  handleSearch() {
+    this.currentSearchQuery = this.searchInput.value;
+    this.applyFiltersAndSearch();
+    
+    // Show/hide clear button
+    if (this.clearSearchBtn) {
+      this.clearSearchBtn.style.display = this.currentSearchQuery ? 'flex' : 'none';
+    }
+  }
+
+  // Clear search
+  clearSearch() {
+    this.currentSearchQuery = '';
+    this.searchInput.value = '';
+    this.applyFiltersAndSearch();
+    
+    if (this.clearSearchBtn) {
+      this.clearSearchBtn.style.display = 'none';
+    }
+  }
+
+  // Apply all filters and search
+  applyFiltersAndSearch() {
+    // Start with search results
+    let filteredKits = this.searchKits(this.currentSearchQuery);
+    
+    // Apply team filter
+    if (this.currentTeamFilter !== 'all') {
+      filteredKits = filteredKits.filter(kit => kit.team === this.currentTeamFilter);
+    }
+    
+    // Apply year filter
+    if (this.currentYearFilter !== 'all') {
+      filteredKits = filteredKits.filter(kit => kit.year.toString() === this.currentYearFilter);
+    }
+    
+    this.renderKits(filteredKits);
+  }
+
   // Handle filter changes
   handleFilterChange() {
     // Get current filter values
@@ -151,13 +253,46 @@ class ShopManager {
     const checkedYearFilter = document.querySelector('input[name="year"]:checked');
     this.currentYearFilter = checkedYearFilter ? checkedYearFilter.value : 'all';
 
-    // Filter and render kits
-    const filteredKits = filterKits(this.currentTeamFilter, this.currentYearFilter);
-    this.renderKits(filteredKits);
+    // Apply filters and search
+    this.applyFiltersAndSearch();
+  }
+
+  // Handle card clicks
+  handleCardClick(event) {
+    // Don't navigate if clicking on buttons, selects, or links
+    if (event.target.tagName === 'BUTTON' || 
+        event.target.tagName === 'SELECT' || 
+        event.target.tagName === 'A' ||
+        event.target.closest('button') ||
+        event.target.closest('select') ||
+        event.target.closest('a')) {
+      return;
+    }
+
+    const card = event.target.closest('.clickable-card');
+    if (card) {
+      const kitId = card.dataset.kitId;
+      window.location.href = `kit-detail.html?id=${kitId}`;
+    }
   }
 
   // Bind event listeners
   bindEventListeners() {
+    // Search input
+    if (this.searchInput) {
+      this.searchInput.addEventListener('input', () => this.handleSearch());
+      this.searchInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          this.clearSearch();
+        }
+      });
+    }
+
+    // Clear search button
+    if (this.clearSearchBtn) {
+      this.clearSearchBtn.addEventListener('click', () => this.clearSearch());
+    }
+
     // Team filter dropdown
     if (this.teamFilter) {
       this.teamFilter.addEventListener('change', () => this.handleFilterChange());
@@ -168,11 +303,14 @@ class ShopManager {
       filter.addEventListener('change', () => this.handleFilterChange());
     });
 
-    // Add to cart buttons (event delegation)
+    // Kit grid event delegation for multiple interactions
     if (this.kitsGrid) {
       this.kitsGrid.addEventListener('click', (event) => {
         if (event.target.classList.contains('add-to-cart-btn')) {
           this.handleAddToCart(event);
+        } else {
+          // Handle card clicks for navigation
+          this.handleCardClick(event);
         }
       });
     }

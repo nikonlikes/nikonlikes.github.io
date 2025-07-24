@@ -136,7 +136,8 @@
 
       featuredKits.forEach(kit => {
         const kitCard = document.createElement('div');
-        kitCard.className = 'kit-card';
+        kitCard.className = 'kit-card clickable-card';
+        kitCard.style.cursor = 'pointer';
         kitCard.innerHTML = `
           <div class="kit-image">
             <img src="${kit.img}" alt="${kit.team} ${kit.variant} ${kit.year}" loading="lazy">
@@ -151,6 +152,16 @@
             <a href="kit-detail.html?id=${kit.id}" class="btn btn-small">View Details</a>
           </div>
         `;
+        
+        // Make the entire card clickable
+        kitCard.addEventListener('click', (e) => {
+          // Prevent double navigation if the View Details button is clicked
+          if (e.target.tagName === 'A' || e.target.closest('a')) {
+            return;
+          }
+          window.location.href = `kit-detail.html?id=${kit.id}`;
+        });
+        
         featuredGrid.appendChild(kitCard);
       });
     </script>

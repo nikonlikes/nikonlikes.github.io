@@ -1,0 +1,182 @@
+{
+  "timestamp": "2025-07-24T00:01:38.197Z",
+  "totalJerseys": 12,
+  "jerseys": [
+    {
+      "kitId": "arg-home-2022",
+      "filePath": "assets/img/kits/arg-home-2022.svg",
+      "team": "Argentina",
+      "variant": "Home",
+      "year": 2022,
+      "colors": {
+        "primary": "#75aadb",
+        "secondary": "#ffffff",
+        "accent": "#f6b40e"
+      },
+      "pattern": "stripes",
+      "description": "Classic sky blue and white stripes"
+    },
+    {
+      "kitId": "arg-away-2022",
+      "filePath": "assets/img/kits/arg-away-2022.svg",
+      "team": "Argentina",
+      "variant": "Away",
+      "year": 2022,
+      "colors": {
+        "primary": "#6a4c93",
+        "secondary": "#ffffff",
+        "accent": "#f6b40e"
+      },
+      "pattern": "solid",
+      "description": "Bold purple away design"
+    },
+    {
+      "kitId": "bra-home-2022",
+      "filePath": "assets/img/kits/bra-home-2022.svg",
+      "team": "Brazil",
+      "variant": "Home",
+      "year": 2022,
+      "colors": {
+        "primary": "#ffdf00",
+        "secondary": "#009739",
+        "accent": "#012169"
+      },
+      "pattern": "solid",
+      "description": "Iconic yellow with green trim"
+    },
+    {
+      "kitId": "bra-away-2022",
+      "filePath": "assets/img/kits/bra-away-2022.svg",
+      "team": "Brazil",
+      "variant": "Away",
+      "year": 2022,
+      "colors": {
+        "primary": "#012169",
+        "secondary": "#ffffff",
+        "accent": "#ffdf00"
+      },
+      "pattern": "solid",
+      "description": "Navy blue away kit"
+    },
+    {
+      "kitId": "fra-home-2022",
+      "filePath": "assets/img/kits/fra-home-2022.svg",
+      "team": "France",
+      "variant": "Home",
+      "year": 2022,
+      "colors": {
+        "primary": "#001e68",
+        "secondary": "#ffffff",
+        "accent": "#ed2939"
+      },
+      "pattern": "solid",
+      "description": "Classic French blue"
+    },
+    {
+      "kitId": "eng-home-2022",
+      "filePath": "assets/img/kits/eng-home-2022.svg",
+      "team": "England",
+      "variant": "Home",
+      "year": 2022,
+      "colors": {
+        "primary": "#ffffff",
+        "secondary": "#1e3a8a",
+        "accent": "#dc2626"
+      },
+      "pattern": "solid",
+      "description": "Traditional white with navy and red details"
+    },
+    {
+      "kitId": "ger-home-2018",
+      "filePath": "assets/img/kits/ger-home-2018.svg",
+      "team": "Germany",
+      "variant": "Home",
+      "year": 2018,
+      "colors": {
+        "primary": "#ffffff",
+        "secondary": "#000000",
+        "accent": "#dd0077"
+      },
+      "pattern": "solid",
+      "description": "Classic white with modern accents"
+    },
+    {
+      "kitId": "esp-home-2022",
+      "filePath": "assets/img/kits/esp-home-2022.svg",
+      "team": "Spain",
+      "variant": "Home",
+      "year": 2022,
+      "colors": {
+        "primary": "#c60b1e",
+        "secondary": "#ffcc00",
+        "accent": "#ffffff"
+      },
+      "pattern": "solid",
+      "description": "Bold Spanish red"
+    },
+    {
+      "kitId": "ned-home-2022",
+      "filePath": "assets/img/kits/ned-home-2022.svg",
+      "team": "Netherlands",
+      "variant": "Home",
+      "year": 2022,
+      "colors": {
+        "primary": "#ff8200",
+        "secondary": "#ffffff",
+        "accent": "#21468b"
+      },
+      "pattern": "solid",
+      "description": "Vibrant Dutch orange"
+    },
+    {
+      "kitId": "por-home-2022",
+      "filePath": "assets/img/kits/por-home-2022.svg",
+      "team": "Portugal",
+      "variant": "Home",
+      "year": 2022,
+      "colors": {
+        "primary": "#ff0000",
+        "secondary": "#006600",
+        "accent": "#ffff00"
+      },
+      "pattern": "solid",
+      "description": "Rich Portuguese red"
+    },
+    {
+      "kitId": "bel-home-2018",
+      "filePath": "assets/img/kits/bel-home-2018.svg",
+      "team": "Belgium",
+      "variant": "Home",
+      "year": 2018,
+      "colors": {
+        "primary": "#000000",
+        "secondary": "#ffff00",
+        "accent": "#ff0000"
+      },
+      "pattern": "solid",
+      "description": "Belgian black with flag accents"
+    },
+    {
+      "kitId": "cro-home-2018",
+      "filePath": "assets/img/kits/cro-home-2018.svg",
+      "team": "Croatia",
+      "variant": "Home",
+      "year": 2018,
+      "colors": {
+        "primary": "#ff0000",
+        "secondary": "#ffffff",
+        "accent": "#012169"
+      },
+      "pattern": "checkered",
+      "description": "Iconic red and white checkerboard"
+    }
+  ],
+  "improvements": [
+    "Enhanced color accuracy based on official team colors",
+    "Added realistic jersey details (collars, sleeves, crests)",
+    "Improved Argentina striped pattern",
+    "Added Croatia checkered pattern",
+    "Better proportions and shadows",
+    "Team-specific design elements"
+  ]
+}
